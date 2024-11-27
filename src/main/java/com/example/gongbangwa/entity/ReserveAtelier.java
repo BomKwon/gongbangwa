@@ -16,7 +16,7 @@ public class ReserveAtelier extends Base {  //예약한수업
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rano;
+    private int rano;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "rno")

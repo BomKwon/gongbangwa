@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>header</title>
+</head>
+<body>
+
+<div th:fragment="header">
+
+
+    <div class="header" style="background-color: #fefaf0; border-bottom: solid 0.5px #e5e7eb">
+        <div class="container" >
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-2">
+                <a href="/" class="d-flex align-items-center col-md-3 mt-2 mb-0 mb-md-0 text-dark text-decoration-none">
+                    <img src="/img/main/gongbangwa_h.png" width="48">
+                </a>
+
+                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 mt-2">
+                    <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+                </ul>
+
+                <div class="font-size small" sec:authorize="isAuthenticated()"> <!-- -->
+                    <a href="/user/myinfo" th:text="${#authentication.name}" style="text-decoration: none; color: #ffc109">이름</a>님 환영합니다
+                    <!--내 정보 페이지로 이동-->
+                </div>
+
+                <th:block  sec:authorize="isAuthenticated()">
+                    <div class="dropdown text-end nav-item" >
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li>
+                                <a class="dropdown-item" href="/user/myinfo">내 정보</a>
+                            </li>
+                            <li><a class="dropdown-item" href="/cart/list">즐겨찾기</a></li>
+                            <li><a class="dropdown-item" href="/order/list">예약내역</a></li>
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li><a class="dropdown-item" href="/user/logout" >로그아웃</a></li>
+                        </ul>
+                    </div>
+                </th:block>
+
+                <div class="col-md-3 mt-2 text-end" sec:authorize="isAnonymous()">
+                    <a href="/signin" type="button" class="btn btn-outline-danger me-2" >login</a>
+                    <a href="/signup" type="button" class="btn btn-danger" >sign-up</a>
+                </div>
+
+            </header>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>
