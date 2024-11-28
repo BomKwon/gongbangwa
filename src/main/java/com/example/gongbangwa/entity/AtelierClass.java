@@ -48,7 +48,7 @@ public class AtelierClass extends Base {
     @JoinColumn(name = "ano")
     private Atelier atelier;
 
-    @Column(columnDefinition = "integer default 0", nullable = false)
+    @Column(columnDefinition = "Integer default 0", nullable = false)
     private int acView;   //조회수
 
     //앞 나 to 뒤 데려오는애

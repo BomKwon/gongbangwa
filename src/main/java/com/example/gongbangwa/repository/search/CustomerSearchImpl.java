@@ -1,5 +1,5 @@
 package com.example.gongbangwa.repository.search;
-import com.example.gongbangwa.dto.UserSearchDTO;
+import com.example.gongbangwa.dto.search.UserSearchDTO;
 import com.example.gongbangwa.entity.Customer;
 import com.example.gongbangwa.entity.QCustomer;
 import com.querydsl.core.BooleanBuilder;

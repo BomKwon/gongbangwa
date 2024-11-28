@@ -27,9 +27,8 @@ public class CustomerController {
     @GetMapping("/signup")
     public String customerSignUp(Model model) {
 
-        model.addAttribute("userDTO",new CustomerDTO());
-        /*새로운 CustomerDTO를 userDTO라는 이름으로 만들어서 보내줌
-          ㄴ atelier 가입에서도 써야하기 때문*/
+        model.addAttribute("customerDTO",new CustomerDTO());
+        /*새로운 CustomerDTO를 customerDTO로 만들어서 보내줌*/
         log.info("일반회원가입이다!!!!!!");
         /*회원가입창 들어왔음*/
         return "/customer/signup";
@@ -51,10 +50,24 @@ public class CustomerController {
             model.addAttribute("errorMessage",e.getMessage());
             /*중복시 에러창 errorMessage라는 이름으로 값보내줌*/
 
-            return "/user/register";/*얘도 돌아감*/
+            return "/user/signup";/*얘도 돌아감*/
         }
         log.info("야앙아아아아아아아아아");/*완료~*/
-        return "redirect:/signin";/*로그인창으로 갑시다~*/
+        model.addAttribute("result", "회원가입을 축하드립니다!");
+        return "redirect:/customer/login";/*로그인창으로 갑시다~*/
+    }
+
+    @GetMapping("/login")
+    public String loginUser(){
+
+        return "/customer/login";
+    }
+    @GetMapping("/login/error")
+    public String loginError(Model model){
+
+        model.addAttribute("errorMessage", "이메일 또는 비밀번호가 틀렸습니다!!!!");
+
+        return "/customer/login";
     }
 
 }

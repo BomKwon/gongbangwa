@@ -1,15 +1,11 @@
 package com.example.gongbangwa.service;
-import com.example.gongbangwa.dto.CustomerDTO;
-import com.example.gongbangwa.dto.UserSearchDTO;
 import com.example.gongbangwa.entity.Customer;
 import com.example.gongbangwa.repository.CustomerRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.security.Principal;
 
 @Service

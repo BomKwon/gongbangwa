@@ -6,6 +6,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @ToString
@@ -23,5 +25,10 @@ public class ReviewDTO {
     private int ano;
 
     private int acno;
+
+    private LocalDateTime regTime;
+    private LocalDateTime updateTime;
+    private String createBy;
+
 
 }

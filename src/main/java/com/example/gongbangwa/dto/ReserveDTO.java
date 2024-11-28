@@ -29,6 +29,8 @@ public class ReserveDTO {
     private String email;
 
     private LocalDateTime regTime;
+    private LocalDateTime updateTime;
+    private String createBy;
 
     private List<ReserveAtelierDTO> reserveAtelierDTOS = new ArrayList<>();
 

@@ -1,8 +1,11 @@
 buildscript {
     ext {
+        // querydsl 추가
+        //  (gradle 5.0 이상부터는 옵션을 이렇게 넣어주어야 함)
         queryDslVersion = "5.0.0"
     }
 }
+// querydsl 추가 끝
 
 plugins {
     id 'java'

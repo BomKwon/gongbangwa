@@ -6,6 +6,30 @@
 <head>
     <meta charset="UTF-8">
     <title>공방와 :: 회원가입</title>
+
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+
+            $(document).ready(function (e) {
+
+                console.log("냥")
+
+                var errorMessage = [[${errorMessage}]];
+                if (errorMessage != null) {
+                    alert(errorMessage);
+                }
+
+                var result = [[${result}]];
+
+                if (result != null) {
+                    alert(result)
+                }
+
+            })
+
+        </script>
+    </th:block>
+
 </head>
 <body>
 

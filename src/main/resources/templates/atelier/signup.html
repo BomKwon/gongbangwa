@@ -6,6 +6,17 @@
 <head>
     <meta charset="UTF-8">
     <title>공방와 :: 사장 회원 가입</title>
+
+    <th:block layout:fragment="css">
+        <!--css-->
+        <style>
+            .fieldError {
+                color: red;
+            }
+        </style>
+    </th:block>
+
+    <!-- 사용자 스크립트 추가-->
     <th:block layout:fragment="script">
         <script th:inline="javascript">
             $(document).ready(function (e) {
@@ -23,299 +34,113 @@
                     alert(result)
                 }
 
-                let regex = new RegExp("(.*?)\.(exp|sh|zip|alz|tiff)$");
-                let maxSize = 10485760; //10MB
-
-                function checkExtension(fileName, fileSize) {
-
-                    if (fileSize >= maxSize) {
-                        alert("파일 사이즈 초과");
-                        return false;
-                    }
-
-                    if (regex.test(fileName)) {
-                        alert("해당 종류의 파일은 업로드할 수 없습니다.")
-                        return false;
-                    }
-                    return true;
-                }
-
-                //메인 이미지
-                $(".File").on("change", function (e) {
-
-                    let fileName = $(this).val().split("\\").pop();
-
-                    let formData = new FormData();
-                    console.log(formData);
-
-                    let inputFile = $(this);
-
-                    let files = inputFile[0].files;
-
-                    let appended = false;
-
-                    for (let i = 0; i < files.length; i++) {
-                        if (!checkExtension(files[i].name, files[i].size)) {
-                            return false;
-                        }
-
-                        console.log(files[i])
-                        formData.append("uploadFiles", files[i]);
-                        appended = true;
-                    }
-
-                    //upload를 하지 않는다.
-                    if (!appended) {
-                        return;
-                    }
-                    for (let value of formData.values()) {
-                        console.log(value)
-                    }
-
-                    //실제 업로드 부분
-                    //upload ajax
-                    $.ajax({
-                        url: '/uploadAjax',
-                        processData: false,
-                        contentType: false,
-                        data: formData,
-                        type: 'post',
-                        dataType: 'json',
-                        success: function (result) {
-                            console.log(result)
-                            //나중에 화면 처리
-                            showResult(result)
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            console.log(textStatus);
-                        }
-                    });//ajax
-                })
-
-                //보조 이미지
-                $(".Files").on("change", function (e) {
-
-                    if (!$(".File").val()){
-                        alert("메인 이미지부터 넣어주세요");
-
-                        $(".Files").val("")
-                        return false;
-                    } else {
-
-                        let fileName = $(this).val().split("\\").pop();
-
-                        let formData = new FormData();
-
-                        let inputFile = $(this);
-
-                        let files = inputFile[0].files;
-
-                        let appended = false;
-
-                        for (let i = 0; i < files.length; i++) {
-                            if (!checkExtension(files[i].name, files[i].size)) {
-                                return false;
-                            }
-
-                            console.log(files[i])
-                            formData.append("uploadFiles", files[i]);
-                            appended = true
-                        }
-
-                        //upload를 하지 않는다.
-                        if (!appended) {
-                            return;
-                        }
-                        for (let value of formData.values()) {
-                            console.log(value)
-                        }
-
-                        //실제 업로드 부분
-                        //upload ajax
-                        $.ajax({
-                            url: '/uploadAjax',
-                            processData: false,
-                            contentType: false,
-                            data: formData,
-                            type: 'post',
-                            dataType: 'json',
-                            success: function (result) {
-                                console.log(result)
-                                //나중에 화면 처리
-                                showResult1(result)
-
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                                console.log(textStatus);
-                            }
-                        });//ajax
-                    }//else
-
-                })
-
-            })
-
-            //메인이미지
-            function showResult(arr) {
-                console.log($(".Files").val())
-                console.log($(".File").val())
-
-                let divArea = $(".uploadResult ul");
-
-                let str = "";
-
-
-                for (let i = 0; i < arr.length; i++) {
-                    str += "<li data-name='" + arr[i].fileName + "' data-uuid='" + arr[i].uuid + "' data-mainimg='y'>";
-                    str += "<div>";
-                    str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'>";
-                    str += "<button class='removeBtn' type='button' data-name='" + arr[i].imageURL + "'>REMOVE</button>";
-                    str += "</div>";
-                    str += "</li>";
-                }
-                divArea.append(str);
-
-            }
-
-            //보조이미지
-            function showResult1(arr) {
-                console.log($(".Files").val())
-                console.log($(".File").val())
-
-                let divArea = $(".uploadResult ul");
-
-                let str = "";
-
-
-                //1부터 시작 메인이미지만 0임
-                for (let i = 0; i < arr.length; i++) {
-                    str += "<li data-name='" + arr[i].fileName + "' data-uuid='" + arr[i].uuid + "'>";
-                    str += "<div>";
-                    str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'>";
-                    str += "<button class='removeBtn' type='button' data-name='" + arr[i].imageURL + "'>REMOVE</button>";
-                    str += "</div>";
-                    str += "</li>";
-                }
-                divArea.append(str);
-
-            }
-
-
-            $(".uploadResult ").on("click", "li .removeBtn", function (e) {
-                let target = $(this);
-                let fileName = target.data("name");
-                let targetDiv = $(this).closest("li");
-
-                console.log(fileName);
-
-                $.post('/removeFile', {fileName: fileName}, function (result) {
-                    console.log(result);
-                    if (result === true) {
-                        targetDiv.remove();
-                    }
-                })
-
-
-            });
-
-            $(".submitBtn").on("click", function (e) {
-
-                console.log(target.data())
-
-                e.preventDefault()
-
-                let str = "";
-
-                $(".uploadResult li").each(function (i, obj) {
-                    let target = $(obj);
-
-                    str += "<input type='hidden' name='productImageDTOList[" + i + "].fileName' value='" + target.data('name') + "'>";
-                    str += "<input type='hidden' name='productImageDTOList[" + i + "].uuid' value='" + target.data('uuid') + "'>";
-                    if (target.data('mainImg') == null) {
-                        str += "<input type='hidden' name='productImageDTOList[" + i + "].mainImg' value='n'>";
-                    } else {
-                        str += "<input type='hidden' name='productImageDTOList[" + i + "].mainImg' value='" + target.data('mainImg') + "'>";
-                    }
-
-
-                });
-
-                $(".box").html(str);
-
-
-                if ($(".box").html() == "" || $(".box").html() == null){
-                    alert("이미지를 넣어주세요.")
-
-                    return false;
-                }
-
-                $(".forms").submit();
             })
 
         </script>
     </th:block>
+
 
 </head>
 <body>
 
 <div layout:fragment="content">
 
-    <form action="/product/register" class="forms" method="post" th:object="${productDTO}" enctype="multipart/form-data">
+    <form action="/atelier/signup" class="forms" method="post" th:object="${atelierDTO}" enctype="multipart/form-data">
         <div class="row mt-3 mb-3">
             <div class="col col-md-4 offset-md-4">
                 <div class="card mb-4">
                     <div class="card-body">
 
-                        <label class="form-label" for="category" >판매상태</label>
-                        <select aria-label="Default select example" class="form-select" id="productStatus" name="productStatus">
-                            <option value="SELL">판매중</option>
-                            <option value="SOLD_OUT">품절</option>
-                        </select><br>
-
-                        <label class="form-label" for="pName" >상품명</label>
-                        <input class="form-control" id="pName" name="pName" th:field="*{pName}" type="text">
-                        <p th:errors="*{pName}" th:if="${#fields.hasErrors('pName')}"></p><br>
-
-                        <label class="form-label" for="category" >카테고리</label>
-                        <select aria-label="Default select example" class="form-select" id="category" name="category">
-                            <option value="상의">상의</option>
-                            <option value="하의">하의</option>
-                            <option value="원피스">원피스/세트</option>
-                            <option value="아우터">아우터</option>
-                            <option value="신발">신발</option>
-                            <option value="가방">가방</option>
-                            <option value="ACC">ACC</option>
-                        </select><br>
-
-                        <label class="form-label" for="pDetail" >상세설명</label>
-                        <textarea class="form-control" id="pDetail" name="pDetail" th:field="*{pDetail}"></textarea>
-                        <p th:errors="*{pDetail}" th:if="${#fields.hasErrors('pDetail')}"></p><br>
-
-                        <label class="form-label" for="price" >가격</label>
-                        <input class="form-control" id="price" name="price" th:field="*{price}" type="number">
-                        <p th:errors="*{price}" th:if="${#fields.hasErrors('price')}"></p><br>
-
-                        <label class="form-label" for="discount" >할인율</label>
-                        <input class="form-control" id="discount" name="discount" th:field="*{discount}"
-                               type="number"><br>
-                        <p th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}"></p><br>
-
-                        <label class="form-label" for="price" >재고수량</label>
-                        <input class="form-control" id="stockNumber" name="price" th:field="*{stockNumber}" type="number">
-                        <p th:errors="*{stockNumber}" th:if="${#fields.hasErrors('stockNumber')}"></p><br>
-
-                        <p >메인이미지 : </p><input class="File mb-3" type="file">
-                        <p >보조이미지 : </p><input class="Files mb-3" multiple type="file">
-                        <!--    <button type="button" class="uploadBtn">업로드</button>-->
-                        <div class="uploadResult">
-                            <ul></ul>
-                        </div>
                         <div style="text-align: center">
-                            <input class="btn btn-primary submitBtn mb-1" type="submit" value="등록">
+                            <img src="/img/user/master.png" width="60px" style="margin-bottom: 3px">
+                            <h3 >사장 회원 가입</h3>
                         </div>
 
+                        <div class="role">
+                            <label class="form-label" for="role" >회원유형</label>
+                            <select aria-label="Default select example" class="form-select" th:field="*{role}" id="role" name="role">
+                                <option value="MASTER">사장회원</option>
+                            </select>
+                        </div>
+
+                        <label class="form-label" for="email" >이메일</label>
+                        <input type="text" class="form-control" id="email" name="email" th:field="*{email}"></input>
+                        <p th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
+
+                        <label class="form-label" for="password" >비밀번호</label>
+                        <input class="form-control" id="password" name="password" th:field="*{password}" type="text">
+                        <p th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
+
+                        <label class="form-label" for="atelierNm" >상호명</label>
+                        <input class="form-control" id="atelierNm" name="atelierNm" th:field="*{atelierNm}" type="text">
+                        <p th:errors="*{atelierNm}" th:if="${#fields.hasErrors('atelierNm')}"></p>
+
+                        <div class="atelierType">
+                            <label class="form-label" for="Role" >업종</label>
+                            <select aria-label="Default select example" class="form-select" th:field="*{atelierType}" id="atelierType" name="atelierType">
+                                <option value="candle">캔들/향수</option>
+                                <option value="wood">목공</option>
+                                <option value="silver">금속공예</option>
+                                <option value="drink">조주</option>
+                                <option value="art">미술</option>
+                                <option value="bake">베이킹</option>
+                                <option value="pottery">도예</option>
+                                <option value="knitting">뜨개질</option>
+                            </select>
+                        </div>
+
+                        <label class="form-label" for="atelierDetail" >상세설명</label>
+                        <input class="form-control" id="atelierDetail" name="atelierDetail" th:field="*{atelierDetail}" type="text">
+                        <p th:errors="*{atelierDetail}" th:if="${#fields.hasErrors('atelierDetail')}"></p>
+
+                        <!--추후 주소 api 가져오는것으로 변경-->
+                        <label class="form-label" for="atelierAdd" >사업지 주소</label>
+                        <input class="form-control" id="atelierAdd" name="atelierAdd" th:field="*{atelierAdd}" type="text">
+                        <p th:errors="*{atelierAdd}" th:if="${#fields.hasErrors('atelierAdd')}"></p>
+
+                        <label class="form-label" for="phone" >전화번호</label>
+                        <input class="form-control" id="phone" name="phone" th:field="*{phone}"
+                               type="tel">
+                        <p th:errors="*{phone}" th:if="${#fields.hasErrors('phone')}"></p>
+
+                        <label class="form-label" for="name" >대표자명</label>
+                        <input class="form-control" id="name" name="name" th:field="*{name}" type="text">
+                        <p th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></p> <br>
+
+                        <!-- if 만약에 넘어오는 이미지 파일이 없다면-->
+                        <div th:if =  "${#lists.isEmpty(atelierDTO.atelierImgDTOList)}">
+                            <label class="form-label" for="atelierAdd" >대표사진</label>
+                            <div class="input-group mb-3" >
+                                <input type="file" class="form-control cutom-file-input" name="atelierImgFile">
+                            </div>
+                        </div>
+
+                        <div th:if =  "${not #lists.isEmpty(atelierDTO.atelierImgDTOList)}">
+                            <div class="input-group  mb-3" th:each="atelierImgDTO, status: ${atelierDTO.atelierImgDTOList}">
+
+                                <input type="file"  class="form-control form-control-file" th:id="${status.index+1}" name="atelierImgFile" >
+
+                                <input type="text" class="form-control"  name="atelierImgIds" th:value="${atelierImgDTO.aino}">
+
+
+                                <label th:for="${status.index+1}" class="input-group-text form-control-label" th:text="${not #strings.isEmpty(atelierImgDTO.oriImgName)} ? ${atelierImgDTO.oriImgName} : '상품이미지'" >Upload</label>
+                            </div>
+                        </div>
+
+<!--                                                         넘어오는 이미지 파일이 있다면 , 데이터값 db-->
+                        <div th:if =  "${#strings.isEmpty(atelierDTO.ano)}" style="text-align: center; margin-top: 3px; margin-bottom: 5px">
+
+                            <button th:formaction="@{/atelier/signup}" type="submit" class="btn btn-danger">가입하기</button>
+
+                        </div>
+
+<!--                        <div style="text-align: center; margin-top: 15px">-->
+<!--                            <input class="btn btn-secondary submitBtn" type="submit" value="등록">-->
+<!--                        </div>-->
 
                     </div>
+
+
                 </div>
             </div>
         </div>

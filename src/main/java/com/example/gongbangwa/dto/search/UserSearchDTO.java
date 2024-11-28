@@ -1,4 +1,4 @@
-package com.example.gongbangwa.dto;
+package com.example.gongbangwa.dto.search;
 
 import com.example.gongbangwa.constant.Role;
 import lombok.Getter;

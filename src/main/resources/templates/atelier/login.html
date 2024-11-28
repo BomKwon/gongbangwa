@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout1}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공방와 :: 로그인</title>
+
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+
+            $(document).ready(function (e) {
+
+                console.log("냥")
+
+                var errorMessage = [[${errorMessage}]];
+                if (errorMessage != null) {
+                    alert(errorMessage);
+                }
+
+                var result = [[${result}]];
+
+                if (result != null) {
+                    alert(result)
+                }
+
+            })
+
+        </script>
+    </th:block>
+
+</head>
+<body>
+
+
+<div layout:fragment="content">
+
+    <br>
+    <br>
+
+    <div style="width: 500px; text-align: center; margin: 0 auto">
+        <form action="/atelier/login" method="post">
+            <img class="mb-4" src="/img/user/master.png" alt="" width="85" height="62" style="margin-top: 18px">
+            <h2 class="h3 mb-3 fw-normal" style="font-family: '210snailB'; font-size: xx-large">로그인</h2>
+
+            <div class="form-floating mb-2">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" style="font-size: large">이메일</label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword"style="font-size: large">비밀번호</label>
+            </div>
+
+            <p class="mb-3">아직 회원이 아니신가요? <a href="/signup">공방와 회원가입하기</a></p>
+            <!--        <div class="checkbox mb-3">-->
+            <!--            <label>-->
+            <!--                <input type="checkbox" value="remember-me"> Remember me-->
+            <!--            </label>-->
+            <!--        </div>-->
+            <!--이메일로그인-->
+            <button class="w-100 btn btn-lg btn-danger" type="submit" style="font-size: x-large; margin-top: -5px; margin-bottom: 10px">이메일로 로그인하기</button>
+
+            <button class="w-100 btn btn-lg btn-warning" type="button" style="font-size: x-large; margin-bottom: 10px">
+                <img src="/img/icon/kakao.png" width="30px">
+                 카카오로 로그인하기
+            </button>
+            <button class="w-100 btn btn-lg btn-primary" type="button" style="font-size: x-large; margin-bottom: 10px">
+                <img src="/img/icon/naver.png" width="30px">
+                 네이버로 로그인하기
+            </button>
+            <button class="w-100 btn btn-lg btn-info" type="button" style="font-size: x-large; margin-bottom: 10px">
+                <img src="/img/icon/google.png" width="30px">
+                 구글로 로그인하기
+            </button>
+            <a class="w-100 btn btn-lg btn-secondary" href="/customer/login" style="font-size: x-large; margin-bottom: 10px">
+                <img src="/img/user/customer.png" width="30px">
+                손님 로그인 하러가기
+            </a>
+            <!--        <p class="mt-5 mb-3 text-muted">© 2017–2023</p>-->
+        </form>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+</div>
+
+
+</body>
+</html>

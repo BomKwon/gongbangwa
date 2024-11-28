@@ -33,6 +33,21 @@ public class SecurityConfig {
                                 .requestMatchers("/css/**", "/js/**", "/img/**", "/**").permitAll()
                 )
 
+//                .authorizeRequests()
+//                .antMatchers("/customer/login").permitAll()
+//                .antMatchers("/atelier/login").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/customer/login")  // 첫 번째 로그인 경로
+//                .loginProcessingUrl("/customer/login")  // 첫 번째 로그인 처리 URL
+//                .permitAll()
+//                .and()
+//                .formLogin()
+//                .loginPage("/atelier/login")  // 두 번째 로그인 경로
+//                .loginProcessingUrl("/atelier/login")  // 두 번째 로그인 처리 URL
+//                .permitAll();
+
                 .csrf((csrf) -> csrf
 
                         .disable()
@@ -42,22 +57,18 @@ public class SecurityConfig {
 
                 //현재 모든 경로에 대해서 csrf 미사용
 
-                .formLogin(formLogin -> formLogin.loginPage("/user/login")
+                .formLogin(formLogin -> formLogin.loginPage("/customer/login")
                         .defaultSuccessUrl("/")
                         .usernameParameter("email")
-                        .failureUrl("/user/login/error")
+                        .failureUrl("/customer/login/error")
 
                 )
 
 
                 .logout((logout) -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/customer/logout"))
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true));
-
-
-
-
 
 
 

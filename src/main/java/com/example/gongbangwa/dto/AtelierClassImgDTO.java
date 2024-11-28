@@ -1,9 +1,10 @@
 package com.example.gongbangwa.dto;
 
-import com.example.gongbangwa.dto.base.BaseDTO;
 import com.example.gongbangwa.entity.AtelierClassImg;
 import lombok.*;
 import org.modelmapper.ModelMapper;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -11,7 +12,7 @@ import org.modelmapper.ModelMapper;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AtelierClassImgDTO extends BaseDTO {
+public class AtelierClassImgDTO{
 
     private int id;
 
@@ -22,6 +23,13 @@ public class AtelierClassImgDTO extends BaseDTO {
     private String imgUrl;   //이미지 조회 경로
 
     private String repimgYn;        // 대표이미지 여부
+
+
+    private LocalDateTime regTime;
+    private LocalDateTime updateTime;
+    private String createBy;
+
+
 
     // 메소드  EntityToDto // DtoToEntity
     private static ModelMapper modelMapper = new ModelMapper();
