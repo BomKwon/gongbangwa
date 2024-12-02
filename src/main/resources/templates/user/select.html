@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout1}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공방와 :: 회원가입</title>
+
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+
+            $(document).ready(function (e) {
+
+                console.log("냥")
+
+                var errorMessage = [[${errorMessage}]];
+                if (errorMessage != null) {
+                    alert(errorMessage);
+                }
+
+                var result = [[${result}]];
+
+                if (result != null) {
+                    alert(result)
+                }
+
+            })
+
+        </script>
+    </th:block>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="px-4 pt-5 my-5 text-center">
+
+<!--        <img src="/img/main/gongbangwa.png" width="100px">-->
+
+        <h1>공방와</h1>
+
+        <br>
+        <h5>가입 유형을 선택해주세요!🐻</h5>
+        <div class="col-lg-6 mx-auto" >
+            <p class="lead mb-4">
+            </p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5" style="text-align: center">
+                <a type="button" href="/customer/signup" class="btn btn-outline-danger btn-lg px-4 col-4" style="font-size: x-large;">
+                    <p style="font-size: small" ><br>공방을 이용하고 싶다면?</p>
+                    <div height="50" style="margin-top: -5px">
+                        <img src="/img/user/admin.png" height="52"><br>
+                    </div>
+                    <p style="margin-bottom: 1px">손님</p>
+                    <p style="font-size: small">회원 가입하기</p>
+                </a>
+                <a type="button" href="/atelier/signup" class="btn btn-outline-danger btn-lg px-4 col-4" style="font-size: x-large">
+                    <p style="font-size: small"><br>공방 주인이라면?</p>
+                    <div width="50px" height="50" style="margin-bottom: 3px; margin-top: 3px">
+                        <img src="/img/user/master.png" height="40" style="margin-top: 1px"><br>
+                    </div>
+                    <p style="margin-bottom: 1px">사장님</p>
+                    <p style="font-size: small">회원 가입하기</p>
+                </a>
+            </div>
+        </div>
+        <br>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

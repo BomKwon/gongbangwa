@@ -48,17 +48,17 @@ public class AtelierClass extends Base {
     @JoinColumn(name = "ano")
     private Atelier atelier;
 
-    @Column(columnDefinition = "integer default 0", nullable = false)
+    @Column(columnDefinition = "Integer default 0", nullable = false)
     private int acView;   //조회수
 
     //앞 나 to 뒤 데려오는애
-    @OneToMany(mappedBy = "atelier_class", cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "atelierClass", cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY)
     private List<AtelierClassImg> atelierClassImgList = new ArrayList<>();
 
 
     //추후 추가함
-    @OneToMany(mappedBy = "atelier_class", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "atelierClass", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReserveAtelier> reserveAteliers;
 
@@ -71,7 +71,7 @@ public class AtelierClass extends Base {
         this.acPrice = acPrice;
         this.acDifficulty = acDifficulty;
         this.acStock = acStock;
-        this.atelier = atelier;
+//        this.atelier = atelier;
     }
 
 

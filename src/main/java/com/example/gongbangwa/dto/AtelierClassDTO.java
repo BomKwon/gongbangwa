@@ -4,7 +4,8 @@ import com.example.gongbangwa.constant.ResStatus;
 import com.example.gongbangwa.entity.Atelier;
 import com.example.gongbangwa.entity.AtelierClass;
 import com.example.gongbangwa.entity.Customer;
-import com.example.gongbangwa.entity.base.Base;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AtelierClassDTO extends Base {
+public class AtelierClassDTO{
 
     private int acno;
 
@@ -39,6 +40,7 @@ public class AtelierClassDTO extends Base {
     private Customer cno;
 
     private int acView;   //조회수
+
 
 
     public AtelierClass newAC(){

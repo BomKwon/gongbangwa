@@ -10,7 +10,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "atelier")
 @Table(name = "atelier_img")
 public class AtelierImg extends Base {
 
@@ -35,7 +35,7 @@ public class AtelierImg extends Base {
     private Atelier atelier;
 
 
-    public void updateQuestImg(String oriImgName, String imgName, String imgUrl) {
+    public void updateAtelierImg(String oriImgName, String imgName, String imgUrl) {
         this.oriImgName = oriImgName;
         this.imgName = imgName;
         this.imgUrl = imgUrl;

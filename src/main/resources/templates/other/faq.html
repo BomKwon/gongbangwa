@@ -1,0 +1,33 @@
+<html layout:decorate="~{layouts/layout1}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공방와 :: 자주 묻는 질문</title>
+
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+
+            $(document).ready(function (e) {
+
+                console.log("이 사이트에 대한 간단한 QnA식 설명!?")
+
+            })
+
+        </script>
+    </th:block>
+
+</head>
+<body>
+
+<div layout:fragment="content" >
+
+    <div class="px-4 pt-5 my-5 text-center">
+        ㅎㅇ요
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -4,14 +4,8 @@ import com.example.gongbangwa.constant.ResStatus;
 
 public class ReserveAtelierDTO {
 
-    private String atelierNm;  //공방명
+    private int rano;
 
-    private String acNm;    //수업명
-
-    private int reservePrice;
-
-    private int count;      //수량
-
-    private String imgUrl; //상품이미지
+   AtelierClassDTO atelierClassDTO;
 
 }

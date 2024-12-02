@@ -28,7 +28,7 @@ public class Favorite extends Base {
 
     @OneToMany(mappedBy = "favorite" , cascade = CascadeType.ALL, orphanRemoval = true
             , fetch = FetchType.LAZY)
-    private List<FavoriteAtelier> favoritQuests = new ArrayList<>();
+    private List<FavoriteAtelier> favoriteAtelierList = new ArrayList<>();
 
     //즐겨찾기 등록
     public static Favorite createfavorit(Customer customer) {

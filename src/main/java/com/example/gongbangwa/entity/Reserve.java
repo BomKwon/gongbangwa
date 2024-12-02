@@ -20,7 +20,7 @@ public class Reserve extends Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rno;
+    private int rno;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cno")
@@ -31,6 +31,8 @@ public class Reserve extends Base {
     private List<ReserveAtelier> reserveAteliers = new ArrayList<>();
 
     private LocalDateTime reserveDate;
+
+    private int reservePrice;
 
     //예약 대기, 완료, 취소
     @Enumerated(EnumType.STRING)
