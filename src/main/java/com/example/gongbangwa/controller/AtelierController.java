@@ -75,7 +75,7 @@ public class AtelierController {
 
         model.addAttribute("result", "회원가입을 축하드립니다!");
 
-        return "redirect:/atelier/login";/*로그인창으로 갑시다~*/
+        return "redirect:/login";/*로그인창으로 갑시다~*/
     }
 
     @GetMapping("/myInfo")

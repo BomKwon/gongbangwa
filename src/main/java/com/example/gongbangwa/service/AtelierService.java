@@ -5,6 +5,7 @@ import com.example.gongbangwa.entity.AtelierImg;
 import com.example.gongbangwa.entity.Customer;
 import com.example.gongbangwa.repository.AtelierImgRepository;
 import com.example.gongbangwa.repository.AtelierRepository;
+import com.example.gongbangwa.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,18 +22,22 @@ public class AtelierService {
 
 
     private final AtelierRepository atelierRepository;
-    // itemImg 정보저장
     private final AtelierImgService atelierImgService;
+
+    //이메일 중복 검사용
+    private final CustomerRepository customerRepository;
+
 
     private void validateDuplicate(Atelier atelier) {
         log.info("이미 가입된 회원인지 확인");
         // 데이터베이스에 저장된 회원가입이 되어있는지 찾아본다.
-        Atelier findMemberE = atelierRepository.findByEmail(atelier.getEmail());
+        Atelier findMemberA = atelierRepository.findByEmail(atelier.getEmail());
+        Customer findMemberC = customerRepository.findByEmail(atelier.getEmail());
 
         //이미 가입된 email이라면
-        if(findMemberE != null) {
-            log.info("이미 가입된 회원");
-            throw new IllegalStateException("이미 가입된 회원입니다.");
+        if(findMemberA != null || findMemberC != null) {
+            log.info("이미 가입된 이메일");
+            throw new IllegalStateException("이미 가입된 이메일입니다.");
         }
 
     }

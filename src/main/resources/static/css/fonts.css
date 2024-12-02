@@ -1,0 +1,23 @@
+/*fonts.css*/
+@font-face {
+    font-family: '210snailR'; /*font 이름*/
+    src: url("/font/210 달팽이R.ttf") format("truetype");
+    font-weight: normal;
+    unicode-range: U+AC00-D7A3, U+0030-0039, U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E;
+}
+@font-face {
+    font-family: '210snailB'; /*font 이름*/
+    src: url("/font/210 달팽이B.ttf") format("truetype");
+    font-weight: normal;
+    unicode-range: U+AC00-D7A3, U+0030-0039, U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E;
+}
+@font-face {
+    font-family: '210snailL'; /*font 이름*/
+    src: url("/font/210 달팽이L.ttf") format("truetype");
+    font-weight: normal;
+}
+
+/* 폰트 적용 */
+/*body {*/
+/*    font-family: '210snailL';*/
+/*}*/

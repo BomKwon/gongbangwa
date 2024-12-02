@@ -1,0 +1,34 @@
+.page-link {
+    position: relative;
+    display: inline-block;
+    color: #ff7952;
+    border-radius: 24px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 8px 16px 8px 16px;
+    margin-left:10px;
+    margin-right:10px;
+    margin-top: 10px;
+}
+.page-link:hover {
+    z-index: 2;
+    border-radius: 24px;
+    color: white;
+    text-decoration: none;
+    background-color: #ff7952;
+    border-color: #dee2e6;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #ff7952;
+    border-color: #ff7952;
+}
+.page-item:first-child .page-link {
+    border-radius: 24px;
+}
+
+.page-item:last-child .page-link {
+    border-radius: 24px;
+}

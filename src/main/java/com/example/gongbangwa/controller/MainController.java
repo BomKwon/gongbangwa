@@ -36,16 +36,23 @@ public class MainController {
 
     @GetMapping("/FAQs")
     public String FAQs(){
-        //자주묻는질문 (사이트 설명)
+        //자주묻는질문
 
         return "/other/faq";
     }
 
     @GetMapping("/about")
     public String about(){
-        //자주묻는질문 (사이트 설명)
+        //사이트 설명
 
         return "/other/about";
+    }
+
+    @GetMapping("/developer_Info")
+    public String developerInfo(){
+        //개발자 설명
+
+        return "/other/developer";
     }
 
 
