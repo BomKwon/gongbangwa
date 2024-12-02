@@ -78,17 +78,11 @@ public class AtelierController {
         return "redirect:/atelier/login";/*로그인창으로 갑시다~*/
     }
 
-    @GetMapping("/login")
-    public String loginUser(){
+    @GetMapping("/myInfo")
+    public String myInfo(){
+        //회원 정보 읽기
 
-        return "/atelier/login";
-    }
-    @GetMapping("/login/error")
-    public String loginError(Model model){
-
-        model.addAttribute("errorMessage", "이메일 또는 비밀번호가 틀렸습니다!!!!");
-
-        return "/atelier/login";
+        return "/atelier/myInfo";
     }
 
 

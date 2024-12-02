@@ -21,5 +21,32 @@ public class MainController {
         return "/user/select";
     }
 
+    @GetMapping("/login")
+    public String loginUser(){
+
+        return "/user/login";
+    }
+    @GetMapping("/login/error")
+    public String loginError(Model model){
+
+        model.addAttribute("errorMessage", "이메일 또는 비밀번호가 틀렸습니다!!!!");
+
+        return "/customer/login";
+    }
+
+    @GetMapping("/FAQs")
+    public String FAQs(){
+        //자주묻는질문 (사이트 설명)
+
+        return "/other/faq";
+    }
+
+    @GetMapping("/about")
+    public String about(){
+        //자주묻는질문 (사이트 설명)
+
+        return "/other/about";
+    }
+
 
 }

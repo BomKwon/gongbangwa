@@ -1,9 +1,17 @@
 package com.example.gongbangwa.service;
+import com.example.gongbangwa.constant.Role;
+import com.example.gongbangwa.entity.Atelier;
 import com.example.gongbangwa.entity.Customer;
+import com.example.gongbangwa.repository.AtelierRepository;
 import com.example.gongbangwa.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -12,9 +20,12 @@ import java.security.Principal;
 @Transactional
 @RequiredArgsConstructor
 @Log4j2
-public class CustomerService {
+public class CustomerService  implements UserDetailsService {
 
     private final CustomerRepository customerRepository;
+
+    private final AtelierRepository atelierRepository;
+
 
     //회원정보찾기 이메일로
     public Customer findByEmail(String email) {
@@ -57,37 +68,63 @@ public class CustomerService {
 
     }
 
-//    @Override
-//    public CustomerDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//        User user = this.customerRepository.findByEmail(email);
-//
-//        if(user == null){
-//            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다." + email);
-//        }
-////        User user1 = user.get();  optional 이라서 했던 코드
-////        List<GrantedAuthority> authorities = new ArrayList<>(); // 권한들
-//        log.info(user);
-//        log.info("현재 로그인하신분의 권한 : " + user.getRole().name());
-//        String role  = "";
-//        if("ADMIN".equals(user.getRole().name())){   //auth 컬럼을 추가로 지정해서 사용
-//            log.info("관리자");
-//            role = Role.ADMIN.name();
-////            authorities.add(new SimpleGrantedAuthority(Role.ADMIN.name()));
-//        }else {
-//            log.info("일반유저");
-//            role = Role.USER.name();
-//            // authorities.add(new SimpleGrantedAuthority(Role.USER.name()));
-//        }
-//        return org.springframework.security.core.userdetails.User.builder()
-//                .username( user.getEmail() )
-//                .password( user.getPassword())
-//                .roles(role)
-//                .build();
-//        //User(memberuser.getEmail(), memberuser.getPassword(), authorities);
-//        // 권한 까지 부여된후 User객체를 생성해 반환함, 스프링시큐리티에서 사용하며, 아이디, 패스워드, 권한 을 리턴
-//        // 리턴된 User객체의 비밀번호와 , 사용자가 폼에 입력한 비밀번호가 일치하는지 검사하는 기능을 내부에 가지고 있음
-//        //여러 롤을 배열로 던질것인가 생각
-//    }
+
+    /*회원 로그인 - 공방사장 + 일반회원 + 관리자 통합*/
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        Customer customer = customerRepository.findByEmail(email);
+        Atelier atelier = atelierRepository.findByEmail(email);
+
+        if(customer == null){
+            if(atelier == null){
+                throw new UsernameNotFoundException("사용자를 찾을 수 없습니다." + email);
+            }else {
+                log.info(atelier);
+                log.info("현재 로그인하신분의 권한 : " + atelier.getRole().name());
+                String role  = "";
+                if("ADMIN".equals(atelier.getRole().name())){   //auth 컬럼을 추가로 지정해서 사용
+                    log.info("관리자");
+                    role = Role.ADMIN.name();
+                }else if("MASTER".equals(atelier.getRole().name())){   //auth 컬럼을 추가로 지정해서 사용
+                    log.info("맛스타");
+                    role = Role.MASTER.name();
+                }else {
+                    log.info("일반유저");
+                    role = Role.USER.name();
+                }
+                return org.springframework.security.core.userdetails.User.builder()
+                        .username( atelier.getEmail() )
+                        .password( atelier.getPassword())
+                        .roles(role)
+                        .build();
+            }
+
+
+        }else {
+            log.info(customer);
+            log.info("현재 로그인하신분의 권한 : " + customer.getRole().name());
+            String role  = "";
+            if("ADMIN".equals(customer.getRole().name())){   //auth 컬럼을 추가로 지정해서 사용
+                log.info("관리자");
+                role = Role.ADMIN.name();
+            }else if("MASTER".equals(customer.getRole().name())){   //auth 컬럼을 추가로 지정해서 사용
+                log.info("맛스타");
+                role = Role.MASTER.name();
+            }else {
+                log.info("일반유저");
+                role = Role.USER.name();
+            }
+            return org.springframework.security.core.userdetails.User.builder()
+                    .username( customer.getEmail() )
+                    .password( customer.getPassword())
+                    .roles(role)
+                    .build();
+        }
+
+
+
+    }
 
 
     public String getUser(Principal principal){

@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>header</title>
+
 </head>
 <body>
 
@@ -19,38 +20,50 @@
                     <img src="/img/main/gongbangwa_h.png" width="48">
                 </a>
 
-                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 mt-2">
-                    <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-                    <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
-                    <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
-                    <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-                    <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+
+                <ul class="nav col-5 col-md-auto mb-2 justify-content-center mb-md-0 mt-2 menuList">
+                    <li><a href="#" class="nav-link px-2 link-dark home">Home</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark atelier">Atelier</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark reserve">Reserve</a></li>
+                    <li><a href="/FAQs" class="nav-link px-2 link-dark faq">FAQs</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark about">About</a></li>
                 </ul>
 
-                <div class="font-size small" sec:authorize="isAuthenticated()"> <!-- -->
-                    <a href="/user/myinfo" th:text="${#authentication.name}" style="text-decoration: none; color: #ffc109">이름</a>님 환영합니다
-                    <!--내 정보 페이지로 이동-->
+
+<!--                <div class="font-size small" >-->
+<!--                    <a href="/user/myinfo" th:text="${#authentication.name}" style="text-decoration: none; color: #f3979b">이름</a>(회원유형)님 환영합니다-->
+<!--                    &lt;!&ndash;마이페이지 링크 달아야지&ndash;&gt;-->
+<!--                </div>-->
+
+                <div class="font-size small text-end" sec:authorize="isAuthenticated()">
+
+                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+
+                    <a href="#" style="color: #ff7952; margin-bottom: 0; text-decoration: none" >
+                        <img src="/img/icon/like.png" width="30">
+                    </a>
+
+                    &ensp;&ensp;
+
+                    <a href="#" style="color: #ff7952; margin-bottom: 0; text-decoration: none" >
+                        <img src="/img/icon/reserve.png" width="30">
+                    </a>
+
+                    &ensp;&ensp;
+
+                    <button type="button" class="btn btn-outline-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">[[${#authentication.getName()}]] (USER)님</button>
+                    <ul class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 40px); " data-popper-placement="bottom-start">
+                        <li><a class="dropdown-item" href="/customer/myInfo">마이페이지</a></li> <!--if role이 user,admin이라면~~/ master가 아니라면~~-->
+                        <li><a class="dropdown-item" href="/atelier/myInfo">마이페이지</a></li> <!--if role이 master라면~~~ -->
+                        <li><a class="dropdown-item" href="#">즐겨찾기</a></li>
+                        <li><a class="dropdown-item" href="#">예약 내역</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                    </ul>
                 </div>
 
-                <th:block  sec:authorize="isAuthenticated()">
-                    <div class="dropdown text-end nav-item" >
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" href="/user/myinfo">내 정보</a>
-                            </li>
-                            <li><a class="dropdown-item" href="/cart/list">즐겨찾기</a></li>
-                            <li><a class="dropdown-item" href="/order/list">예약내역</a></li>
-                            <li><hr class="dropdown-divider"></li>
-
-                            <li><a class="dropdown-item" href="/user/logout" >로그아웃</a></li>
-                        </ul>
-                    </div>
-                </th:block>
-
                 <div class="col-md-3 mt-2 text-end" sec:authorize="isAnonymous()">
-                    <a href="/customer/login" type="button" class="btn btn-outline-danger me-2" >login</a>
+                    <a href="/login" type="button" class="btn btn-outline-danger me-2" >login</a>
                     <a href="/signup" type="button" class="btn btn-danger" >sign-up</a>
                 </div>
 

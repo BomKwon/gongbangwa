@@ -25,6 +25,27 @@
                     alert(result)
                 }
 
+                var inputE = $(".form-controlE")
+                var inputP = $(".form-controlP")
+
+                $("button[data-role=submit]").click(function() {
+                    if(inputE.val().trim() == ''){
+                        alert('이메일을 입력해주세요!!');
+                        inputE.val('');
+                        inputE.focus();
+                        return false;
+                    }
+                })
+
+                $("button[data-role=submit]").click(function() {
+                    if(inputP.val().trim() == ''){
+                        alert('비밀번호를 입력해주세요!!');
+                        inputP.val('');
+                        inputP.focus();
+                        return false;
+                    }
+                })
+
             })
 
         </script>
@@ -40,16 +61,16 @@
     <br>
 
     <div style="width: 500px; text-align: center; margin: 0 auto">
-        <form action="/customer/login" method="post">
-            <img class="mb-4" src="/img/user/customer.png" alt="" width="85" height="80">
+        <form action="/login" method="post">
+            <img class="mb-4" src="/img/user/admin.png" alt="" width="85" height="80">
             <h2 class="h3 mb-3 fw-normal" style="font-family: '210snailB'; font-size: xx-large">로그인</h2>
 
             <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput" style="font-size: large">이메일</label>
+                <input type="email" class="form-control form-controlE" id="floatingEmail" name="email" placeholder="name@example.com">
+                <label for="floatingEmail" style="font-size: large">이메일</label>
             </div>
             <div class="form-floating mb-2">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <input type="password" class="form-control form-controlP" id="floatingPassword" name="password" placeholder="Password">
                 <label for="floatingPassword"style="font-size: large">비밀번호</label>
             </div>
 
@@ -74,10 +95,10 @@
                 <img src="/img/icon/google.png" width="30px">
                  구글로 로그인하기
             </button>
-            <a class="w-100 btn btn-lg btn-secondary" href="/atelier/login" style="font-size: x-large; margin-bottom: 10px">
-                <img src="/img/user/master.png" width="30px">
-                사장님 로그인 하러가기
-            </a>
+<!--            <a class="w-100 btn btn-lg btn-secondary" href="/atelier/login" style="font-size: x-large; margin-bottom: 10px">-->
+<!--                <img src="/img/user/master.png" width="30px">-->
+<!--                사장님 로그인 하러가기-->
+<!--            </a>-->
             <!--        <p class="mt-5 mb-3 text-muted">© 2017–2023</p>-->
         </form>
     </div>

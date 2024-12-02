@@ -10,7 +10,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "atelier")
 @Table(name = "atelier_img")
 public class AtelierImg extends Base {
 

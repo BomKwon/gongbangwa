@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebListener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -57,16 +58,15 @@ public class SecurityConfig {
 
                 //현재 모든 경로에 대해서 csrf 미사용
 
-                .formLogin(formLogin -> formLogin.loginPage("/customer/login")
+                /*일반회원, 관리자 전용*/
+                .formLogin(formLogin -> formLogin.loginPage("/login")
                         .defaultSuccessUrl("/")
                         .usernameParameter("email")
-                        .failureUrl("/customer/login/error")
+                        .failureUrl("/login/error")
 
                 )
-
-
                 .logout((logout) -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/customer/logout"))
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true));
 
@@ -85,6 +85,8 @@ public class SecurityConfig {
     //  스프링 시큐리티의 인증 처리 , 인증은 로그인
     // AuthenticationManager는 사용자 인증시 앞에서 작성한 UserSecurityService 와 passwordEncoder를
     //내부적으로 사용 인증과 권한 부여
+
+
 
 
 }
