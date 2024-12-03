@@ -16,17 +16,17 @@ public class ReserveLesson extends Base {  //예약한수업
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int rano;
+    private int rlno;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "rno")
     private Reserve reserve;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "acno")
+    @JoinColumn(name = "lno")
     private Lesson lesson;
 
-    private String acNm;
+    private String lessonNm;
 
     private int reservePrice;
 
@@ -34,18 +34,18 @@ public class ReserveLesson extends Base {  //예약한수업
 
     public static ReserveLesson createReserveAterlierClass(Lesson lesson, int count) throws Exception {
         //atelier는 검색한 아이템 //removeStock()를 통해서 수량 변경
-        ReserveLesson reserveAterlier = new ReserveLesson();
+        ReserveLesson reserveLesson = new ReserveLesson();
 
-        reserveAterlier.setLesson(lesson);        //예약한 수업
-        reserveAterlier.setCount(count);      //구매수량
+        reserveLesson.setLesson(lesson);        //예약한 수업
+        reserveLesson.setCount(count);      //구매수량
 
-        reserveAterlier.setAcNm(lesson.getAcNm());
+        reserveLesson.setLessonNm(lesson.getLessonNm());
 
-        reserveAterlier.setReservePrice(lesson.getAcPrice());
+        reserveLesson.setReservePrice(lesson.getLessonPrice());
 
         lesson.removeStock(count);
 
-        return reserveAterlier;
+        return reserveLesson;
     }
     public int getTotalPrice(){     //주문한 금액
         return reservePrice * count;
