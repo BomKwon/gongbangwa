@@ -20,7 +20,7 @@ public class ReviewDTO {
 
     private int ano;
 
-    private int acno;
+    private int lno;
 
     private LocalDateTime regTime;
     private LocalDateTime updateTime;

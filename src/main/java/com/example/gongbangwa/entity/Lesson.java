@@ -2,9 +2,6 @@ package com.example.gongbangwa.entity;
 
 import com.example.gongbangwa.constant.LessonStatus;
 import com.example.gongbangwa.constant.ResStatus;
-import com.example.gongbangwa.entity.Atelier;
-import com.example.gongbangwa.entity.LessonImg;
-import com.example.gongbangwa.entity.ReserveLesson;
 import com.example.gongbangwa.entity.base.Base;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -56,13 +53,13 @@ public class Lesson extends Base {
     private int lessonView;   //조회수
 
     //앞 나 to 뒤 데려오는애
-    @OneToMany(mappedBy = "atelierClass", cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY)
     private List<LessonImg> lessonImgList = new ArrayList<>();
 
 
     //추후 추가함
-    @OneToMany(mappedBy = "atelierClass", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReserveLesson> reserveLessons;
 

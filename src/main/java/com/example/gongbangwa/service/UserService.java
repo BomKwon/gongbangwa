@@ -1,6 +1,8 @@
 package com.example.gongbangwa.service;
 
 import com.example.gongbangwa.constant.Role;
+import com.example.gongbangwa.dto.AtelierDTO;
+import com.example.gongbangwa.dto.CustomerDTO;
 import com.example.gongbangwa.entity.Atelier;
 import com.example.gongbangwa.entity.Customer;
 import com.example.gongbangwa.repository.AtelierRepository;
@@ -8,9 +10,11 @@ import com.example.gongbangwa.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +25,8 @@ public class UserService implements UserDetailsService {
 
     private final CustomerRepository customerRepository;
     private final AtelierRepository atelierRepository;
+    private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
     /*회원 로그인 - 공방사장 + 일반회원 + 관리자 통합*/
     @Override
@@ -77,6 +83,29 @@ public class UserService implements UserDetailsService {
 
 
 
+    }
+
+
+    public CustomerDTO readC(String email){
+        log.info( "read(String email)" + email);
+        Customer customer = customerRepository.findCustomerByEmail(email);
+
+        if (customer == null){
+            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다");
+        }
+        CustomerDTO customerDTO = modelMapper.map(customer, CustomerDTO.class);
+        return customerDTO;
+    }
+
+    public AtelierDTO readA(String email){
+        log.info( "read(String email)" + email);
+        Atelier atelier = atelierRepository.findAtelierByEmail(email);
+
+        if (atelier == null){
+            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다");
+        }
+        AtelierDTO atelierDTO = modelMapper.map(atelier, AtelierDTO.class);
+        return atelierDTO;
     }
 
 

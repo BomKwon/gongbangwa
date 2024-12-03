@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LessonRepository extends JpaRepository<Lesson, Integer> {
 
-    Page<Lesson> findByAcNmContaining(String keyword, Pageable pageable);
-    Page<Lesson> findByAcDifficultyContainingAndAcNmContaining(String keyword, String keyword1, Pageable pageable);
-    Page<Lesson> findByAcDifficultyContaining(String keyword, Pageable pageable);
+    Page<Lesson> findByLessonNmContaining(String keyword, Pageable pageable);
+    Page<Lesson> findByLessonDifficultyContainingAndLessonNmContaining(String keyword, String keyword1, Pageable pageable);
+    Page<Lesson> findByLessonDifficultyContaining(String keyword, Pageable pageable);
 
 }

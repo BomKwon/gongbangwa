@@ -31,6 +31,8 @@ public interface AtelierRepository extends JpaRepository<Atelier, Integer>, Atel
     Atelier findByName(String name);
     Atelier findByNameAndEmail(String name,String email);
 
+    Atelier findAtelierByEmail(String email);
+
 
 
 }

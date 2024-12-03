@@ -1,8 +1,8 @@
 package com.example.gongbangwa.dto;
 
-public class ReserveAtelierDTO {
+public class ReserveLessonDTO {
 
-    private int rano;
+    private int rlno;
 
    LessonDTO lessonDTO;
 

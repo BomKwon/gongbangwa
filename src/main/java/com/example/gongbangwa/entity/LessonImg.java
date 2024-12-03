@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Lesson_img")
+@Table(name = "lesson_img")
 public class LessonImg extends Base {
 
     @Id

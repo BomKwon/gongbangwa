@@ -29,7 +29,7 @@ public class ReserveDTO {
     private LocalDateTime updateTime;
     private String createBy;
 
-    private List<ReserveAtelierDTO> reserveAtelierDTOS = new ArrayList<>();
+    private List<ReserveLessonDTO> reserveLessonDTOS = new ArrayList<>();
 
     //html에서 사용
     List<ReserveDTO> reserveDTOList;
