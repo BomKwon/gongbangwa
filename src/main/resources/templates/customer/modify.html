@@ -5,7 +5,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>공방와 :: 일반 회원 가입</title>
+    <title>공방와 :: 내 정보 수정</title>
 
     <th:block layout:fragment="script">
         <script th:inline="javascript">
@@ -40,14 +40,14 @@
 <div layout:fragment="content">
 
     <div class="row mt-3 mb-3">
-        <form action="/customer/signup" class="forms" method="post" th:object="${customerDTO}">
+        <form action="/customer/modify" class="forms" method="post" th:object="${customer}">
             <div class="col col-md-4 offset-md-4">
             <div class="card mb-4">
                 <div class="card-body">
 
                     <div style="text-align: center">
                         <img src="/img/user/customer.png" width="60px" style="margin-bottom: 5px">
-                        <h3 style="font-family: '210snailB';">일반 회원 가입</h3>
+                        <h3 style="font-family: '210snailB';">내 정보 수정하기</h3>
                     </div>
 
                     <div class="userRole">
@@ -62,28 +62,26 @@
                     <p th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></p>
 
                     <label class="form-label" for="email" >이메일</label>
-                    <input type="text" class="form-control" id="email" name="email" th:field="*{email}"></input>
+                    <input type="text" class="form-control" id="email" name="email" th:field="*{email}" readonly></input>
                     <p th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
 
-                    <label class="form-label" for="password" >비밀번호</label>
-                    <input class="form-control" id="password" name="password" th:field="*{password}" type="password">
-                    <p th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
-
-                    <label class="form-label" for="phone" >휴대폰번호</label>
-                    <input class="form-control" id="phone" name="phone" th:field="*{phone}" type="tel">
-                    <p th:errors="*{phone}" th:if="${#fields.hasErrors('phone')}"></p>
+                    <input class="form-control" id="password" name="password" th:field="*{password}" type="hidden">
 
                     <label class="form-label" for="nickname" >닉네임</label>
                     <input class="form-control" id="nickname" name="nickname" th:field="*{nickname}" type="text">
                     <p th:errors="*{nickname}" th:if="${#fields.hasErrors('nickname')}"></p>
 
-                    <label class="form-label" for="birth" >생년월일</label>
-                    <input class="form-control" id="birth" name="birth" th:field="*{birth}" type="date">
-                    <p th:errors="*{birth}" th:if="${#fields.hasErrors('birth')}"></p>
+                    <label class="form-label" for="phone" >휴대폰번호</label>
+                    <input class="form-control" id="phone" name="phone" th:field="*{phone}" type="tel">
+                    <p th:errors="*{phone}" th:if="${#fields.hasErrors('phone')}"></p>
 
 
                     <div style="text-align: center; margin-top: 15px">
-                        <input class="btn btn-secondary submitBtn mb-1" type="submit" value="등록">
+                        <input class="btn btn-danger submitBtn mb-1" type="submit" value="수정완료">
+                    </div>
+
+                    <div style="margin-top: 15px; text-align: right; ">
+                        <a href="/customer/modifypw" style="margin-bottom: -2px; text-decoration: none">비밀번호 변경하러가기 »</a>
                     </div>
 
 

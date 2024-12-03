@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Log4j2
 @RequiredArgsConstructor
 @RequestMapping
-public class AtelierClassController {
+public class LessonController {
 }

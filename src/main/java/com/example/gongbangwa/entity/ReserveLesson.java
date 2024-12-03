@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ReserveAtelier extends Base {  //예약한수업
+public class ReserveLesson extends Base {  //예약한수업
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class ReserveAtelier extends Base {  //예약한수업
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "acno")
-    private AtelierClass atelierClass;
+    private Lesson lesson;
 
     private String acNm;
 
@@ -32,18 +32,18 @@ public class ReserveAtelier extends Base {  //예약한수업
 
     private int count;  //수량  예약마감을 표시하기 위해
 
-    public static ReserveAtelier createReserveAterlierClass(AtelierClass atelierClass, int count) throws Exception {
+    public static ReserveLesson createReserveAterlierClass(Lesson lesson, int count) throws Exception {
         //atelier는 검색한 아이템 //removeStock()를 통해서 수량 변경
-        ReserveAtelier reserveAterlier = new ReserveAtelier();
+        ReserveLesson reserveAterlier = new ReserveLesson();
 
-        reserveAterlier.setAtelierClass(atelierClass);        //예약한 수업
+        reserveAterlier.setLesson(lesson);        //예약한 수업
         reserveAterlier.setCount(count);      //구매수량
 
-        reserveAterlier.setAcNm(atelierClass.getAcNm());
+        reserveAterlier.setAcNm(lesson.getAcNm());
 
-        reserveAterlier.setReservePrice(atelierClass.getAcPrice());
+        reserveAterlier.setReservePrice(lesson.getAcPrice());
 
-        atelierClass.removeStock(count);
+        lesson.removeStock(count);
 
         return reserveAterlier;
     }
@@ -53,7 +53,7 @@ public class ReserveAtelier extends Base {  //예약한수업
 
 
     public void cancel(){
-        this.getAtelierClass().cancel(count);
+        this.getLesson().cancel(count);
     }
 
 }

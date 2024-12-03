@@ -1,6 +1,6 @@
 package com.example.gongbangwa.dto.search;
 
-import com.example.gongbangwa.constant.ACStatus;
+import com.example.gongbangwa.constant.LessonStatus;
 import com.example.gongbangwa.constant.Role;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +15,7 @@ public class AtelierSearchDTO {
     private Role role;
 
     //예약가능불가
-    private ACStatus acStatus;
+    private LessonStatus lessonStatus;
 
     //지역별로
     private String area;

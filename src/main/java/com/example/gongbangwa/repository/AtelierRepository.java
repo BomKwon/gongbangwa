@@ -28,6 +28,8 @@ public interface AtelierRepository extends JpaRepository<Atelier, Integer>, Atel
 //    /*조회수 순*/
 //    List<Atelier> findByAtelierNmOrderByAtelierViewDesc (Integer atelierView); //내림차(높은)순
 
+    Atelier findByName(String name);
+    Atelier findByNameAndEmail(String name,String email);
 
 
 

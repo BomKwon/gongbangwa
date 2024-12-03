@@ -8,5 +8,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> , C
 
     //이메일로 정보 찾기 //중복회원?? 혹은 로그인시?
     Customer findByEmail (String email);
+    void deleteUserByEmail(String Email);
+    Customer findByName(String name);
+    Customer findByNameAndEmail(String name,String email);
 
 }

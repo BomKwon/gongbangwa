@@ -1,9 +1,6 @@
 package com.example.gongbangwa.dto;
 
 import com.example.gongbangwa.constant.ResStatus;
-import com.example.gongbangwa.entity.Customer;
-import com.example.gongbangwa.entity.ReserveAtelier;
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;

@@ -2,20 +2,21 @@ package com.example.gongbangwa.entity;
 
 import com.example.gongbangwa.entity.base.Base;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @ToString
-@Table(name = "atelier_class_img")
-public class AtelierClassImg extends Base {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "Lesson_img")
+public class LessonImg extends Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int aino;
+    private int lino;
 
     @Column
     private String imgName;     //이미지 파일명
@@ -31,10 +32,10 @@ public class AtelierClassImg extends Base {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "acno")
-    private AtelierClass atelierClass;
+    private Lesson lesson;
 
 
-    public void updateQuestImg(String oriImgName, String imgName, String imgUrl) {
+    public void updateLessonImg(String oriImgName, String imgName, String imgUrl) {
         this.oriImgName = oriImgName;
         this.imgName = imgName;
         this.imgUrl = imgUrl;

@@ -5,7 +5,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>공방와 :: 사장 회원 가입</title>
+    <title>공방와 :: 내 정보 수정</title>
 
     <th:block layout:fragment="css">
         <!--css-->
@@ -48,7 +48,7 @@
 
 <div layout:fragment="content">
 
-    <form action="/atelier/signup" class="forms" method="post" th:object="${atelierDTO}" enctype="multipart/form-data">
+    <form action="/atelier/modify" class="forms" method="post" th:object="${atelier}" enctype="multipart/form-data">
         <div class="row mt-3 mb-3">
             <div class="col col-md-4 offset-md-4">
                 <div class="card mb-4">
@@ -67,12 +67,10 @@
                         </div>
 
                         <label class="form-label" for="email" >이메일</label>
-                        <input type="text" class="form-control" id="email" name="email" th:field="*{email}"></input>
+                        <input type="text" class="form-control" id="email" name="email" th:field="*{email}" readonly></input>
                         <p th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
 
-                        <label class="form-label" for="password" >비밀번호</label>
-                        <input class="form-control" id="password" name="password" th:field="*{password}" type="text">
-                        <p th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
+                        <input class="form-control" id="password" name="password" th:field="*{password}" type="hidden">
 
                         <label class="form-label" for="atelierNm" >상호명</label>
                         <input class="form-control" id="atelierNm" name="atelierNm" th:field="*{atelierNm}" type="text">
@@ -110,32 +108,24 @@
                         <input class="form-control" id="name" name="name" th:field="*{name}" type="text">
                         <p th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></p> <br>
 
-                        <!-- if 만약에 넘어오는 이미지 파일이 없다면-->
-                        <div th:if =  "${#lists.isEmpty(atelierDTO.atelierImgDTOList)}">
-                            <label class="form-label" for="atelierAdd" >대표사진</label>
-                            <div class="input-group mb-3" >
-                                <input type="file" class="form-control cutom-file-input" name="atelierImgFile">
-                            </div>
-                        </div>
+<!--                        <div th:if =  "${not #lists.isEmpty(atelierDTO.atelierImgDTOList)}">-->
+<!--                            <div class="input-group  mb-3" th:each="atelierImgDTO, status: ${atelierDTO.atelierImgDTOList}">-->
 
-                        <div th:if =  "${not #lists.isEmpty(atelierDTO.atelierImgDTOList)}">
-                            <div class="input-group  mb-3" th:each="atelierImgDTO, status: ${atelierDTO.atelierImgDTOList}">
+<!--                                <input type="file"  class="form-control form-control-file" th:id="${status.index+1}" name="atelierImgFile" >-->
 
-                                <input type="file"  class="form-control form-control-file" th:id="${status.index+1}" name="atelierImgFile" >
-
-                                <input type="text" class="form-control"  name="atelierImgIds" th:value="${atelierImgDTO.aino}">
+<!--                                <input type="text" class="form-control"  name="atelierImgIds" th:value="${atelierImgDTO.aino}">-->
 
 
-                                <label th:for="${status.index+1}" class="input-group-text form-control-label" th:text="${not #strings.isEmpty(atelierImgDTO.oriImgName)} ? ${atelierImgDTO.oriImgName} : '상품이미지'" >Upload</label>
-                            </div>
-                        </div>
+<!--                                <label th:for="${status.index+1}" class="input-group-text form-control-label" th:text="${not #strings.isEmpty(atelierImgDTO.oriImgName)} ? ${atelierImgDTO.oriImgName} : '상품이미지'" >Upload</label>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
 <!--                                                         넘어오는 이미지 파일이 있다면 , 데이터값 db-->
-                        <div th:if =  "${#strings.isEmpty(atelierDTO.ano)}" style="text-align: center; margin-top: 3px; margin-bottom: 5px">
+<!--                        <div th:if =  "${#strings.isEmpty(atelierDTO.ano)}" style="text-align: center; margin-top: 3px; margin-bottom: 5px">-->
 
-                            <button th:formaction="@{/atelier/signup}" type="submit" class="btn btn-danger">가입하기</button>
+                            <button th:formaction="@{/atelier/modify}" type="submit" class="btn btn-danger">수정완료</button>
 
-                        </div>
+<!--                        </div>-->
 
 <!--                        <div style="text-align: center; margin-top: 15px">-->
 <!--                            <input class="btn btn-secondary submitBtn" type="submit" value="등록">-->
