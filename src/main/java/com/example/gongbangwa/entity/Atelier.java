@@ -45,6 +45,11 @@ public class Atelier extends Base {
     private String atelierAdd;  //공방 주소
 
     @Column
+    private String opening;  //공방오픈시간
+    @Column
+    private String closing;  //공방마감시간
+
+    @Column
     private String name;       //이름
 
     @Column
@@ -82,6 +87,9 @@ public class Atelier extends Base {
         atelier.setAtelierType(atelierDTO.getAtelierType());
         atelier.setAtelierDetail(atelierDTO.getAtelierDetail());
         atelier.setAtelierAdd(atelierDTO.getAtelierAdd());
+        atelier.setAtelierArea(atelierDTO.getAtelierArea());
+        atelier.setOpening(atelierDTO.getOpening());
+        atelier.setClosing(atelierDTO.getClosing());
         atelier.setRole(Role.MASTER);      // 사용자가 가입했을때
 
         return atelier;

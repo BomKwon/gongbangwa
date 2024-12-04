@@ -2,6 +2,7 @@ package com.example.gongbangwa.dto;
 
 import com.example.gongbangwa.constant.Role;
 import com.querydsl.core.annotations.QueryProjection;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -35,6 +36,13 @@ public class AtelierDTO{
     @NotBlank(message = "사업지는 필수 입력 값입니다.")
     private String atelierAdd;  //공방 주소
 
+
+    @NotBlank(message = "오픈시간은 필수 입력 값입니다.")
+    private String opening;  //공방오픈시간
+    @NotBlank(message = "마감시간은 필수 입력 값입니다.")
+    private String closing;  //공방마감시간
+
+
     private int atelierView;  //공방 조회수
 
     @NotBlank(message = "이메일은 필수 입력 값입니다.")
@@ -56,6 +64,8 @@ public class AtelierDTO{
     private LocalDateTime updateTime;
     private String createBy;
 
+    private String imgUrl;
+    private String imgName;
 
     private List<AtelierImgDTO> atelierImgDTOList = new ArrayList<>();
     // 여기 이미지 넣은것처럼
@@ -71,12 +81,14 @@ public class AtelierDTO{
 
 
     @QueryProjection
-    public AtelierDTO(Integer ano, String atelierNm, String atelierType, String atelierArea, String atelierAdd) {
+    public AtelierDTO(Integer ano, String atelierNm, String atelierType, String atelierArea, String atelierAdd, String imgUrl, String imgName) {
         this.ano = ano;
         this.atelierNm = atelierNm;
         this.atelierType = atelierType;
         this.atelierArea = atelierArea;
         this.atelierAdd = atelierAdd;
+        this.imgUrl = imgUrl;
+        this.imgName = imgName;
     }
 
 

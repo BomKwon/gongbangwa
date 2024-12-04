@@ -6,6 +6,30 @@
     <meta charset="UTF-8">
     <title>공방와 :: [[${atelierDTO.atelierNm}]]</title>
 
+    <th:block layout:fragment="css">
+        <!--css-->
+        <style>
+            .image-box {
+                width:645px;
+                height:630px;
+                overflow:hidden;
+                margin:0 auto;
+            }
+            .image-box2 {
+                width:100px;
+                height:100px;
+                overflow:hidden;
+                margin:0 auto;
+            }
+            .image-thumbnail {
+                width:100%;
+                height:100%;
+                object-fit:cover;
+            }
+        </style>
+
+    </th:block>
+
     <th:block layout:fragment="script">
         <script th:inline="javascript">
 
@@ -39,8 +63,8 @@
                 <div class="card border-light ">
                     <div class="row g-0">
                         <div class="col-md-6">
-                            <div class="ratio ratio-1x1">
-                                <img th:src="${atelierDTO.atelierImgDTOList[0].imgUrl}" class="card-img-top ratio ratio-1x1" width="100%">
+                            <div class="ratio ratio-1x1 image-box">
+                                <img th:src="${atelierDTO.atelierImgDTOList[0].imgUrl}" class="card-img-top ratio ratio-1x1 image-thumbnail" width="100%">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -73,11 +97,35 @@
                                 <div class="mb-3">
 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"></path>
-                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
+                                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"></path>
                                     </svg>
 
                                     <span th:text="${atelierDTO.atelierAdd}" style="font-family: '210snailL'"></span>
+
+                                </div>
+
+                                <div class="mb-3">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"></path>
+                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"></path>
+                                    </svg>
+
+                                    <span style="font-family: '210snailL'" th:text="${atelierDTO.opening}"></span>
+                                    -
+                                    <span style="font-family: '210snailL'" th:text="${atelierDTO.closing}"></span>
+
+
+                                </div>
+
+                                <div class="mb-3">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+
+                                        <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"></path>
+                                    </svg>
+
+                                    <span th:text="${atelierDTO.phone}" style="font-family: '210snailL'"></span>
 
                                 </div>
 

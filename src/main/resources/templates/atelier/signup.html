@@ -37,6 +37,13 @@
                 var role = $(".userRole")
                 role.hide()
 
+                var open = $(".open")
+                var close = $(".close")
+
+                if (open.val >= close.val) {
+                    alert("오픈시간과 마감시간은 같거나 마감시간이 이를 수 없습니다.")
+                }
+
             })
 
         </script>
@@ -89,6 +96,7 @@
                                 <option value="bake">베이킹</option>
                                 <option value="pottery">도예</option>
                                 <option value="knitting">뜨개질</option>
+                                <option value="lather">가죽</option>
                             </select>
                         </div>
 
@@ -97,9 +105,77 @@
                         <p th:errors="*{atelierDetail}" th:if="${#fields.hasErrors('atelierDetail')}"></p>
 
                         <!--추후 주소 api 가져오는것으로 변경-->
+                        <label class="form-label" for="atelierArea" >지역</label>
+                        <input class="form-control" id="atelierArea" name="atelierArea" th:field="*{atelierArea}" type="text">
+                        <p th:errors="*{atelierArea}" th:if="${#fields.hasErrors('atelierArea')}"></p>
+
+                        <!--추후 주소 api 가져오는것으로 변경-->
                         <label class="form-label" for="atelierAdd" >사업지 주소</label>
                         <input class="form-control" id="atelierAdd" name="atelierAdd" th:field="*{atelierAdd}" type="text">
                         <p th:errors="*{atelierAdd}" th:if="${#fields.hasErrors('atelierAdd')}"></p>
+
+
+                        <label class="form-label" for="opening" >오픈시간</label>
+                        <select aria-label="Default select example open" class="form-select" th:field="*{opening}" id="opening" name="opening">
+                            <option value="00:00">00:00</option>
+                            <option value="01:00">01:00</option>
+                            <option value="02:00">02:00</option>
+                            <option value="03:00">03:00</option>
+                            <option value="04:00">04:00</option>
+                            <option value="05:00">05:00</option>
+                            <option value="06:00">06:00</option>
+                            <option value="07:00">07:00</option>
+                            <option value="08:00">08:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                            <option value="18:00">18:00</option>
+                            <option value="19:00">19:00</option>
+                            <option value="20:00">20:00</option>
+                            <option value="21:00">21:00</option>
+                            <option value="22:00">22:00</option>
+                            <option value="23:00">23:00</option>
+                            <option value="24시간">24시간</option>
+                        </select>
+                        <p th:errors="*{opening}" th:if="${#fields.hasErrors('opening')}"></p>
+
+                        <label class="form-label" for="closing" >마감시간</label>
+                        <select aria-label="Default select example close" class="form-select" th:field="*{closing}" id="closing" name="closing">
+                            <option value="00:00">00:00</option>
+                            <option value="01:00">01:00</option>
+                            <option value="02:00">02:00</option>
+                            <option value="03:00">03:00</option>
+                            <option value="04:00">04:00</option>
+                            <option value="05:00">05:00</option>
+                            <option value="06:00">06:00</option>
+                            <option value="07:00">07:00</option>
+                            <option value="08:00">08:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                            <option value="18:00">18:00</option>
+                            <option value="19:00">19:00</option>
+                            <option value="20:00">20:00</option>
+                            <option value="21:00">21:00</option>
+                            <option value="22:00">22:00</option>
+                            <option value="23:00">23:00</option>
+                            <option value="24시간">24시간</option>
+                        </select>
+                        <p th:errors="*{closing}" th:if="${#fields.hasErrors('closing')}"></p>
+
+
 
                         <label class="form-label" for="phone" >전화번호</label>
                         <input class="form-control" id="phone" name="phone" th:field="*{phone}"
@@ -133,7 +209,7 @@
 <!--                                                         넘어오는 이미지 파일이 있다면 , 데이터값 db-->
                         <div th:if =  "${#strings.isEmpty(atelierDTO.ano)}" style="text-align: center; margin-top: 3px; margin-bottom: 5px">
 
-                            <button th:formaction="@{/atelier/signup}" type="submit" class="btn btn-danger">가입하기</button>
+                            <button th:formaction="@{/atelier/signup}" type="submit" class="btn btn-danger submitBtn">가입하기</button>
 
                         </div>
 

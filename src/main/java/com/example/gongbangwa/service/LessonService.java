@@ -55,27 +55,7 @@ public class LessonService {
     }
 
 
-//    /*수업 등록*/
-//    public int lessonRegi(LessonDTO lessonDTO) {
-//        Lesson lesson = modelMapper.map(lessonDTO, Lesson.class);
-//
-//        Lesson result = lessonRepository.save(lesson);
-//
-//        lessonDTO.getLessonImgDTOList().forEach(imgDTO -> {
-//            LessonImg lessonImg = LessonImg.builder()
-//                    .filename(imgDTO.getFileName())
-//                    .uuid(imgDTO.getUuid())
-//                    .lesson(lesson)
-//                    .mainImg(imgDTO.getMainImg())
-//                    .build();
-//
-//            lessonImgRepository.save(lessonImg);
-//        });
-//
-//        int gno = result.getGno();
-//
-//        return gno;
-//    }
+    /*수업 등록*/
 
     //상세정보
 //    public lessonDTO lessonRead(lessonDTO lessonDTO){
