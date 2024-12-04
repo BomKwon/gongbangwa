@@ -2,25 +2,28 @@ package com.example.gongbangwa.controller;
 
 import com.example.gongbangwa.dto.AtelierDTO;
 import com.example.gongbangwa.dto.CustomerDTO;
+import com.example.gongbangwa.dto.PageRequestDTO;
+import com.example.gongbangwa.dto.search.AtelierSearchDTO;
 import com.example.gongbangwa.entity.Atelier;
 import com.example.gongbangwa.entity.Customer;
 import com.example.gongbangwa.service.AtelierService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @Log4j2
@@ -92,9 +95,13 @@ public class AtelierController {
         return "/atelier/myInfo";/*마이페이지로 이동~*/
     }
 
-    @GetMapping("/info")
-    public void atelierRead(AtelierDTO atelierDTO, Model model){
+    //남들도 보는 페이지
+    @GetMapping("/read")
+    public String atelierRead(AtelierDTO atelierDTO, Model model){
+
         model.addAttribute("atelierDTO", atelierService.atelierRead(atelierDTO));
+
+        return "/atelier/read";
     }
 
     //  내 정보 수정
@@ -123,6 +130,43 @@ public class AtelierController {
 //        model.addAttribute("user", userDTO); // dto가 기존의 값을 저장하고있음
         return "redirect:/atelier/myInfo"; //수정된값을 가지고 바로 info페이지로 돌아감
     }
+
+
+    //목록
+    @GetMapping({"/list","/list/{page}"})
+    public String questList(AtelierSearchDTO atelierSearchDTO, PageRequestDTO pageRequestDTO,
+                            @PathVariable("page") Optional<Integer> page, Model model, Principal principal) {
+
+
+//        if (principal != null) {
+//            String nickname = mainService.getUserName(principal);
+//            model.addAttribute("nickname", nickname);
+//
+//            List<LikeDetailDTO> likeDetailDTOList
+//                    = likeService.getLikeList(principal.getName());
+//            // email을 파라미터로 넘긴다.
+//
+//            log.info(likeDetailDTOList);
+//
+//            model.addAttribute("likeDetailDTOList", likeDetailDTOList);
+//        }
+
+        Pageable pageable = PageRequest
+                .of(page.isPresent() ? page.get() : 0 , 9);
+
+        Page<AtelierDTO> ateliers = atelierService
+                .getAtelierPage(atelierSearchDTO, pageable);
+
+//        quests.forEach(quest -> log.info(quest));
+
+        model.addAttribute("ateliers", ateliers);
+        model.addAttribute("maxPage", 10);
+
+
+        return "/atelier/list";
+    }
+
+
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.gongbangwa.dto;
 
 import com.example.gongbangwa.constant.Role;
+import com.querydsl.core.annotations.QueryProjection;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -27,6 +28,9 @@ public class AtelierDTO{
 
     @NotBlank(message = "상세설명은 필수 입력 값입니다.")
     private String atelierDetail;  //공방 설명
+
+    @NotBlank(message = "지역은 필수 입력 값입니다.")
+    private String atelierArea;  //공방 지역
 
     @NotBlank(message = "사업지는 필수 입력 값입니다.")
     private String atelierAdd;  //공방 주소
@@ -61,7 +65,19 @@ public class AtelierDTO{
     //이미 저장되어서 수정할때 불러온 사진들의 아이디 삭제할 이미지들
     private List<Integer> atelierImgIds = new ArrayList<>();
 
+    private List<LessonDTO> lessonDTOList = new ArrayList<>();
+    //이미 저장되어서 수정할때 불러온 수업의 아이디 삭제할 수업
+    private List<Integer> lessons = new ArrayList<>();
 
+
+    @QueryProjection
+    public AtelierDTO(Integer ano, String atelierNm, String atelierType, String atelierArea, String atelierAdd) {
+        this.ano = ano;
+        this.atelierNm = atelierNm;
+        this.atelierType = atelierType;
+        this.atelierArea = atelierArea;
+        this.atelierAdd = atelierAdd;
+    }
 
 
 }

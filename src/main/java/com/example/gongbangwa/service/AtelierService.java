@@ -1,7 +1,7 @@
 package com.example.gongbangwa.service;
 import com.example.gongbangwa.dto.AtelierDTO;
 import com.example.gongbangwa.dto.AtelierImgDTO;
-import com.example.gongbangwa.dto.CustomerDTO;
+import com.example.gongbangwa.dto.search.AtelierSearchDTO;
 import com.example.gongbangwa.entity.Atelier;
 import com.example.gongbangwa.entity.AtelierImg;
 import com.example.gongbangwa.entity.Customer;
@@ -12,6 +12,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -157,6 +159,13 @@ public class AtelierService {
 //        log.info("비밀번호가 변경된 사용자 정보: {}", customer);
 //    }
 
+
+    //목록
+    @Transactional
+    public Page<AtelierDTO> getAtelierPage(AtelierSearchDTO atelierSearchDTO, Pageable pageable){
+
+        return atelierRepository.getMainAtelierPage(atelierSearchDTO, pageable);
+    }
 
 
 

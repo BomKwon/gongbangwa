@@ -1,8 +1,11 @@
 package com.example.gongbangwa.repository.search;
 
+import com.example.gongbangwa.dto.AtelierDTO;
+import com.example.gongbangwa.dto.QAtelierDTO;
 import com.example.gongbangwa.dto.search.AtelierSearchDTO;
 import com.example.gongbangwa.entity.Atelier;
 import com.example.gongbangwa.entity.QAtelier;
+import com.example.gongbangwa.entity.QAtelierImg;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -77,7 +80,7 @@ public class AtelierRepositoryCustormImpl implements AtelierRepositoryCustorm {
 
              QueryResults<Atelier> result =  jpaQueryFactory.selectFrom(QAtelier.atelier)
                 .where( regDtsAfter(atelierSearchDTO.getSearchDateType()),
-                        searchByLike( atelierSearchDTO.getSearchBy(), atelierSearchDTO.getSearchQuery() )
+                        searchByLike( atelierSearchDTO.getSearchQuery(), atelierSearchDTO.getSearchQuery() )
                         )
                 .orderBy(QAtelier.atelier.ano.desc() )
                 .offset(pageable.getOffset())           // 몇번부터 1번글부터 // 11번글 부터
@@ -95,46 +98,40 @@ public class AtelierRepositoryCustormImpl implements AtelierRepositoryCustorm {
 
 
     }
-//
 
 
+    @Override
+    public Page<AtelierDTO> getMainAtelierPage(AtelierSearchDTO atelierSearchDTO, Pageable pageable) {
+        QAtelier atelier = QAtelier.atelier;
+        QAtelierImg atelierImg = QAtelierImg.atelierImg;
 
-//    @Override
-//    public Page<MainQuestDTO> getMainQuestPage(atelierSearchDTO atelierSearchDTO, Pageable pageable) {
-//        QAtelier quest = QAtelier.quest;
-//        QAtelierImg questImg = QAtelierImg.questImg;
-//
-//        QueryResults<MainQuestDTO> result =  jpaQueryFactory.select(
-//                    new QMainQuestDTO(
-//                            quest.id,
-//                            quest.writer,
-//                            quest.title,
-//                            quest.salaryOption,
-//                            quest.salary,
-//                            questImg.imgUrl,
-//                            quest.area,
-//                            quest.questDetail,
-//                            quest.questStatus
-//                    )
-//                )
-//                .from(questImg)
-//                .join(questImg.quest, quest)
-//                .where(questImg.repimgYn.eq("Y"))    //대표이미지
-//                .where(titleLike(atelierSearchDTO.getSearchQuery()))  //상품명검색 입력받은것과 같은거
-//                .orderBy(questImg.id.desc() )
-//                .offset(pageable.getOffset())           // 몇번부터 1번글부터 // 11번글 부터
-//                .limit(pageable.getPageSize())          //size = 10 10개씩
-//                .fetchResults();
-//
-//        List<MainQuestDTO> content = result.getResults();
-//        long total = result.getTotal();
-//
-//
-//        return new PageImpl<>(content, pageable, total);
-//
-//
-//    }
-//
+        QueryResults<AtelierDTO> result =  jpaQueryFactory.select(
+                    new QAtelierDTO(
+                            atelier.ano,
+                            atelier.atelierNm,
+                            atelier.atelierType,
+                            atelier.atelierArea,
+                            atelier.atelierAdd
+                    )
+                )
+                .from(atelierImg)
+                .join(atelierImg.atelier, atelier)
+                .where(atelierImg.repimgYn.eq("Y"))    //대표이미지
+                .where(titleLike(atelierSearchDTO.getSearchQuery()))  //공방이름검색 입력받은것과 같은거
+                .orderBy(atelierImg.aino.desc() )
+                .offset(pageable.getOffset())           // 몇번부터 1번글부터 // 11번글 부터
+                .limit(pageable.getPageSize())          //size = 10 10개씩
+                .fetchResults();
+
+        List<AtelierDTO> content = result.getResults();
+        long total = result.getTotal();
+
+
+        return new PageImpl<>(content, pageable, total);
+
+
+    }
+
 //    @Override
 //    public Page<MainQuestDTO> getUserQuestPage(AtelierSearchDTO atelierSearchDTO, Pageable pageable) {
 //

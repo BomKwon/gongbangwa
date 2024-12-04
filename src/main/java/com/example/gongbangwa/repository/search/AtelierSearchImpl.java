@@ -1,5 +1,6 @@
 package com.example.gongbangwa.repository.search;
 
+import com.example.gongbangwa.dto.AtelierDTO;
 import com.example.gongbangwa.dto.search.AtelierSearchDTO;
 import com.example.gongbangwa.entity.Atelier;
 import com.example.gongbangwa.entity.QAtelier;
@@ -36,11 +37,6 @@ public class AtelierSearchImpl extends QuerydslRepositorySupport implements Atel
     BooleanBuilder booleanBuilder =new BooleanBuilder();
     LocalDateTime localDateTime = LocalDateTime.now();// 현재
 
-    if(atelierSearchDTO.getRole() != null){
-
-      booleanBuilder.and(atelier.role.eq(atelierSearchDTO.getRole()));
-
-    }
 
     if(StringUtils.equals("all", atelierSearchDTO.getSearchDateType())  || atelierSearchDTO.getSearchDateType() == null){
 
@@ -58,14 +54,14 @@ public class AtelierSearchImpl extends QuerydslRepositorySupport implements Atel
       booleanBuilder.and(atelier.regTime.after(localDateTime));
     }
 
-    if(StringUtils.equals("title", atelierSearchDTO.getSearchBy())){
+    if(StringUtils.equals("title", atelierSearchDTO.getSearchQuery())){
       booleanBuilder.and(atelier.atelierNm.like("%" + atelierSearchDTO.getSearchQuery()+ "%"));
 
-    }else if(StringUtils.equals("atelierType",  atelierSearchDTO.getSearchBy()) ){
+    }else if(StringUtils.equals("atelierType",  atelierSearchDTO.getSearchQuery()) ){
 
       booleanBuilder.and(atelier.atelierType.like("%" + atelierSearchDTO.getSearchQuery()+ "%"));
 
-    }else if(StringUtils.equals("atelierAdd",  atelierSearchDTO.getSearchBy()) ){
+    }else if(StringUtils.equals("atelierAdd",  atelierSearchDTO.getSearchQuery()) ){
 
       booleanBuilder.and(atelier.atelierAdd.like("%" + atelierSearchDTO.getSearchQuery()+ "%"));
 
@@ -90,67 +86,68 @@ public class AtelierSearchImpl extends QuerydslRepositorySupport implements Atel
     return new PageImpl<>(content, pageable, count);
   }
 
-//  @Override
-//  public Page<MainQuestDTO> searchQuest(String[] types, String keyword, Pageable pageable) {
-//    QAtelier quest = QAtelier.quest; //q 도메인 객체 entity를 q로 바꾼것
-//
-//    JPQLQuery<Quest> query = from(quest);
-//    //select board from board
-//    query.groupBy(quest);
-//
-//
-//
-//    if ( (types != null && types.length > 0 && keyword != null) ){
-//      BooleanBuilder booleanBuilder =new BooleanBuilder();
-//
-//      for (String string : types){
-//
-//        switch (string){
-//          case "t":
-//            booleanBuilder.or(quest.title.contains(keyword));
-//            break;
-//          case "a":
-//            booleanBuilder.or(quest.area.contains(keyword));
-//            break;
-//
-//        } //swich
-//
-//      }//for
-//      query.where(booleanBuilder);
-//      System.out.println("검색조건 추가 : " + query);
-//    }//if
-//
-//    query.where(quest.id.gt(0L));
-//    System.out.println("0보다 큰 조건 id가" + query);
-//
-//    JPQLQuery<MainQuestDTO> dtoQuery = query.select(Projections.bean(MainQuestDTO.class,
-//            quest.id,
-//            quest.title,
-//            quest.writer,
-//            quest.questStatus,
-//            quest.view,
-//            quest.questImgList,
-//            quest.regTime
-//    ));
-//
-//
-//
-//    //페이징
-//    this.getQuerydsl().applyPagination(pageable, dtoQuery);
-//    System.out.println("페이지어블" + pageable);
-//
-//    List<MainQuestDTO> dtoList = dtoQuery.fetch(); //실행
-//    dtoList.forEach(mainQuestDTO -> System.out.println(mainQuestDTO));
-////    boardList.forEach(board1 -> log.info(board1));
-//    long count = dtoQuery.fetchCount(); //row 수
-//
-//
-//    System.out.println(count);
-//
-//
-//    return new PageImpl<>(dtoList, pageable, count);
-//
-//  }
+  @Override
+  public Page<AtelierDTO> searchAtelier(String[] types, String keyword, Pageable pageable) {
+    QAtelier atelier = QAtelier.atelier; //q 도메인 객체 entity를 q로 바꾼것
+
+    JPQLQuery<Atelier> query = from(atelier);
+    //select board from board
+    query.groupBy(atelier);
+
+
+
+    if ( (types != null && types.length > 0 && keyword != null) ){
+      BooleanBuilder booleanBuilder =new BooleanBuilder();
+
+      for (String string : types){
+
+        switch (string){
+          case "n":
+            booleanBuilder.or(atelier.atelierNm.contains(keyword));
+            break;
+          case "t":
+            booleanBuilder.or(atelier.atelierType.contains(keyword));
+            break;
+          case "a":
+            booleanBuilder.or(atelier.atelierArea.contains(keyword));
+            break;
+
+        } //swich
+
+      }//for
+      query.where(booleanBuilder);
+      System.out.println("검색조건 추가 : " + query);
+    }//if
+
+    query.where(atelier.ano.gt(0L));
+    System.out.println("0보다 큰 조건 ano가" + query);
+
+    JPQLQuery<AtelierDTO> dtoQuery = query.select(Projections.bean(AtelierDTO.class,
+            atelier.ano,
+            atelier.atelierNm,
+            atelier.atelierType,
+            atelier.atelierDetail,
+            atelier.atelierArea,
+            atelier.atelierAdd,
+            atelier.phone,
+            atelier.atelierImgList,
+            atelier.name
+    ));
+
+
+
+    //페이징
+    this.getQuerydsl().applyPagination(pageable, dtoQuery);
+    System.out.println("페이지어블" + pageable);
+
+    List<AtelierDTO> dtoList = dtoQuery.fetch(); //실행
+    dtoList.forEach(atelierDTO -> System.out.println(atelierDTO));
+    long count = dtoQuery.fetchCount(); //row 수
+
+    System.out.println(count);
+
+    return new PageImpl<>(dtoList, pageable, count);
+  }
 
 
 }

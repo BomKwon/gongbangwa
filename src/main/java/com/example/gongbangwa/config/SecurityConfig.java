@@ -45,7 +45,7 @@ public class SecurityConfig {
 
                 /*일반회원, 관리자 전용*/
                 .formLogin(formLogin -> formLogin.loginPage("/login")
-                        .defaultSuccessUrl("/session")
+                        .defaultSuccessUrl("/")
                         .usernameParameter("email")
                         .failureUrl("/login/error")
 

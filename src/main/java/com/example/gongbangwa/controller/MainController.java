@@ -66,8 +66,16 @@ public class MainController {
 
         model.addAttribute("errorMessage", "이메일 또는 비밀번호가 틀렸습니다!!!!");
 
-        return "/customer/login";
+        return "/user/login";
     }
+
+
+    @GetMapping("/map")
+    public void map(Model model){
+
+    }
+
+
 
 
 //    @GetMapping("/findid")
