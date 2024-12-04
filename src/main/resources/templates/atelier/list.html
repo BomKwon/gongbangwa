@@ -1,0 +1,122 @@
+<html layout:decorate="~{layouts/layout1}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공방와 :: 공방 모아보기</title>
+
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+
+            $(document).ready(function (e) {
+
+                console.log("냥")
+
+                var errorMessage = [[${errorMessage}]];
+                if (errorMessage != null) {
+                    alert(errorMessage);
+                }
+
+                var result = [[${result}]];
+
+                if (result != null) {
+                    alert(result)
+                }
+            })
+
+        </script>
+    </th:block>
+
+</head>
+<body>
+
+<div layout:fragment="content" >
+
+    <main>
+
+
+        <!--대문-->
+        <section class="py-5 text-center container" style="margin-bottom: -30px">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light" style="font-family: '210snailR'">공방 모아보기</h1>
+                    <p class="lead text-body-secondary " style="font-family: '210snailL'">아래 버튼을 눌러, 원하는 조건으로 편하게 찾아보자!</p>
+
+                    <button class="btn btn-outline-secondary mt-1" style="font-family: '210snailL'">캔들/향수</button>
+                    <button class="btn btn-outline-secondary mt-1" style="font-family: '210snailL'">나무</button>
+                    <button class="btn btn-outline-secondary mt-1" style="font-family: '210snailL'">은</button>
+                    <button class="btn btn-outline-secondary mt-1" style="font-family: '210snailL'">조주</button>
+                    <button class="btn btn-outline-secondary mt-1" style="font-family: '210snailL'">미술</button>
+                    <button class="btn btn-outline-secondary mt-1" style="font-family: '210snailL'">베이킹</button>
+                    <button class="btn btn-outline-secondary mt-1" style="font-family: '210snailL'">도예</button>
+                    <button class="btn btn-outline-secondary mt-1" style="font-family: '210snailL'">뜨개</button>
+                    <button class="btn btn-outline-secondary mt-1" style="font-family: '210snailL'">가죽</button>
+
+
+                </div>
+            </div>
+        </section>
+
+
+        <!--상품-->
+        <div class="album py-5 mt-0">
+            <div class="container">
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+
+                    <th:block th:each="atelier, status: ${ateliers.getContent()}">
+
+                        <a th:onclick="|location.href='@{/atelier/read(ano=${atelier.ano})}'|" style="text-decoration: none">
+                            <div class="col">
+                                <div class="card shadow-sm">
+                                    <img class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                                    </img>
+                                    <div class="card-body">
+                                        <div class="mb-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"></path>
+                                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
+                                            </svg>
+                                            <span th:text="${atelier.atelierAdd}" style="font-family: '210snailL'"></span>
+                                        </div>
+                                        <h3 th:text="${atelier.atelierNm}" style="font-family: '210snailR'"></h3>
+                                        <h5 style="font-family: '210snailL'; margin-top: -5px;">
+                                            <p th:if="${atelier.getAtelierType()} == 'candle'">캔들/향수공방🪔</p>
+                                            <p th:if="${atelier.getAtelierType()} == 'wood'">목공방🪓</p>
+                                            <p th:if="${atelier.getAtelierType()} == 'silver'">금속공방💍</p>
+                                            <p th:if="${atelier.getAtelierType()} == 'drink'">조주공방🍶</p>
+                                            <p th:if="${atelier.getAtelierType()} == 'art'">미술공방🎨</p>
+                                            <p th:if="${atelier.getAtelierType()} == 'bake'">베이킹공방🥨</p>
+                                            <p th:if="${atelier.getAtelierType()} == 'pottery'">도예공방⚱</p>
+                                            <p th:if="${atelier.getAtelierType()} == 'knitting'">뜨개공방🧶</p>
+                                            <p th:if="${atelier.getAtelierType()} == 'leather'">가죽공방👜</p>
+                                        </h5>
+                                        <div class="d-flex justify-content-between align-items-center" >
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary">❤</button>
+                                            </div>
+                                            <small class="text-body-secondary">9 mins</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                    </th:block>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+
+</div>
+
+</body>
+</html>

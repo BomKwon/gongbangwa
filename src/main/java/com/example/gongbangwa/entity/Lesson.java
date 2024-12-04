@@ -1,5 +1,6 @@
 package com.example.gongbangwa.entity;
 
+import com.example.gongbangwa.constant.LessonStatus;
 import com.example.gongbangwa.constant.ResStatus;
 import com.example.gongbangwa.entity.base.Base;
 import jakarta.persistence.*;
@@ -15,82 +16,82 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@Table(name = "atelier_class")
+@Table(name = "lesson")
 @NoArgsConstructor
-public class AtelierClass extends Base {
+public class Lesson extends Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int acno;
+    private int lno;
 
     @Column
-    private String acNm;
+    private String lessonNm;
 
     @Lob
     @Column
-    private String acDetail;
+    private String lessonDetail;
 
     @Column
-    private int acPrice;
+    private int lessonPrice;
 
     @Column
-    private int acDifficulty;
+    private int lessonDifficulty;
 
     @Column
-    private int acStock;
+    private int lessonStock;
 
 
 
     @Enumerated(EnumType.STRING)
-    private ResStatus resStatus; //예약 상태
+    private LessonStatus lessonStatus; //예약 상태 (가능 불가)
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ano")
     private Atelier atelier;
 
     @Column(columnDefinition = "Integer default 0", nullable = false)
-    private int acView;   //조회수
+    private int lessonView;   //조회수
 
     //앞 나 to 뒤 데려오는애
-    @OneToMany(mappedBy = "atelierClass", cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<AtelierClassImg> atelierClassImgList = new ArrayList<>();
+    private List<LessonImg> lessonImgList = new ArrayList<>();
 
 
     //추후 추가함
-    @OneToMany(mappedBy = "atelierClass", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReserveAtelier> reserveAteliers;
+    private List<ReserveLesson> reserveLessons;
 
 
 
-    public AtelierClass(int acno, String acNm, String acDetail, int acPrice, int acDifficulty, int acStock, Atelier atelier) {
-        this.acno = acno;
-        this.acNm = acNm;
-        this.acDetail = acDetail;
-        this.acPrice = acPrice;
-        this.acDifficulty = acDifficulty;
-        this.acStock = acStock;
+    public Lesson(int lno, String lessonNm, String lessonDetail, int lessonPrice, int lessonDifficulty, int lessonStock, Atelier atelier) {
+        this.lno = lno;
+        this.lessonNm = lessonNm;
+        this.lessonDetail = lessonDetail;
+        this.lessonPrice = lessonPrice;
+        this.lessonDifficulty = lessonDifficulty;
+        this.lessonStock = lessonStock;
 //        this.atelier = atelier;
     }
 
 
 
     //수량을 입력받아서 db의 저장된 개수확인과 , 수량변경
-    public void removeStock(int acStock) throws Exception {   //구매수량
+    public void removeStock(int lessonStock) throws Exception {   //구매수량
         //이미 이 entity는 select를 통해서 값을 가져와서
         //entitymanager가 데이터를 가지고 있다.
         //그래서 수정이 가능하다
 
-        int restStock = this.acStock - acStock;
+        int restStock = this.lessonStock - lessonStock;
 
         if(restStock < 0) {
             throw new Exception("상품의 재고가 부족합니다. " +
-                    "(현재 재고수량 : " + this.acStock + ")");
+                    "(현재 재고수량 : " + this.lessonStock + ")");
         }
 
-        this.acStock = restStock;
-        this.resStatus = ResStatus.valueOf("WAITING");
+        this.lessonStock = restStock;
+        this.lessonStatus = lessonStatus.valueOf("IMPOSSIBLE");
 
     }
 
@@ -99,14 +100,14 @@ public class AtelierClass extends Base {
     //승낙을 눌렀을 때
     public void consent(ResStatus resStatus){  //승낙할때
 
-        this.resStatus = ResStatus.valueOf("SUCCESS");
+        this.lessonStatus = lessonStatus.valueOf("IMPOSSIBLE");
     }
 
     //취소를 눌렀을때
     public void cancel(int count){  //의뢰 취소할때
 
-        this.resStatus = ResStatus.valueOf("CANCEL");
-        this.acStock += acStock;
+        this.lessonStatus = lessonStatus.valueOf("POSSIBLE");
+        this.lessonStock += lessonStock;
     }
 
 }

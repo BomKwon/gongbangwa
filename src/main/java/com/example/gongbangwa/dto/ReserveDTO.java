@@ -1,9 +1,6 @@
 package com.example.gongbangwa.dto;
 
 import com.example.gongbangwa.constant.ResStatus;
-import com.example.gongbangwa.entity.Customer;
-import com.example.gongbangwa.entity.ReserveAtelier;
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -32,7 +29,7 @@ public class ReserveDTO {
     private LocalDateTime updateTime;
     private String createBy;
 
-    private List<ReserveAtelierDTO> reserveAtelierDTOS = new ArrayList<>();
+    private List<ReserveLessonDTO> reserveLessonDTOS = new ArrayList<>();
 
     //html에서 사용
     List<ReserveDTO> reserveDTOList;

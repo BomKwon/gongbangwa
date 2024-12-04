@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout1}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공방와 :: 비밀번호 수정</title>
+
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+
+            $(document).ready(function (e) {
+
+                console.log("냥")
+
+                var errorMessage = [[${errorMessage}]];
+                if (errorMessage != null) {
+                    alert(errorMessage);
+                }
+
+                var result = [[${result}]];
+
+                if (result != null) {
+                    alert(result)
+                }
+            })
+
+        </script>
+    </th:block>
+
+
+</head>
+<body>
+<div layout:fragment="content">
+
+    <form th:action="@{/customer/modifypw}" th:object="${passwordDTO}" method="post" style="color: white">
+        <div class="row mt-5 mb-3">
+            <div class="col col-md-4 offset-md-4">
+
+                <div class="card" style="margin: auto">
+                    <div class="card-body">
+                        <div class="row  align-content-center display:inline-block">
+                            <div class="col mb-3">
+
+                                <div style="text-align: center">
+                                    <img src="/img/user/customer.png" width="60px" style="margin-bottom: 5px">
+                                    <h3 style="font-family: '210snailB';">비밀번호 변경하기</h3>
+                                </div>
+
+                                <div>
+                                    <label class="form-label" for="password" >현재 비밀번호</label>
+                                    <input class="form-control" id="password" name="password" th:field="*{password}" type="text">
+                                    <p th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
+
+                                </div>
+                                <br>
+                                <div>
+                                    <label class="form-label" for="password2" >변경할 비밀번호</label>
+                                    <input class="form-control" id="password2" name="password" th:field="*{password2}" type="text">
+                                    <p th:errors="*{password2}" th:if="${#fields.hasErrors('password2')}"></p>
+                                </div>
+                                <br>
+                                <div>
+                                    <label class="form-label" for="conpassword" >변경할 비밀번호 확인</label>
+                                    <input class="form-control" id="conpassword" name="conpassword" th:field="*{conpassword}" type="text">
+                                    <p th:errors="*{conpassword}" th:if="${#fields.hasErrors('conpassword')}"></p>
+                                </div>
+                                <br>
+                                <div style="text-align: center">
+                                    <button th:href="@{/customer/modifypw}" type="submit" class="btn btn-danger" >비밀번호 변경</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

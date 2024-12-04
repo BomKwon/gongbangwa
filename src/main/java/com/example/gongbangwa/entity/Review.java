@@ -26,6 +26,6 @@ public class Review extends Base {
 
     @ManyToOne
     @JoinColumn(name = "acno")
-    private AtelierClass atelierClass;
+    private Lesson lesson;
 
 }

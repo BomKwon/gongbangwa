@@ -39,6 +39,9 @@ public class Atelier extends Base {
     private String atelierDetail;  //공방 설명
 
     @Column
+    private String atelierArea;   //지역
+
+    @Column
     private String atelierAdd;  //공방 주소
 
     @Column
@@ -57,6 +60,11 @@ public class Atelier extends Base {
     @OneToMany(mappedBy = "atelier", cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY)
     private List<AtelierImg> atelierImgList = new ArrayList<>();
+
+    //수업
+    @OneToMany(mappedBy = "atelier", cascade = CascadeType.ALL,
+            orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Lesson> lessonList = new ArrayList<>();
 
 
 

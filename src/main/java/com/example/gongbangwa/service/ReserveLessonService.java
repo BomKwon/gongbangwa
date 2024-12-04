@@ -8,5 +8,5 @@ import org.springframework.stereotype.Service;
 @Transactional
 @RequiredArgsConstructor
 @Log4j2
-public class ReserveAtelierService {
+public class ReserveLessonService {
 }

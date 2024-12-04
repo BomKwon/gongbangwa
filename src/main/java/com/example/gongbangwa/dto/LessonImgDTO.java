@@ -1,6 +1,6 @@
 package com.example.gongbangwa.dto;
 
-import com.example.gongbangwa.entity.AtelierClassImg;
+import com.example.gongbangwa.entity.LessonImg;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AtelierClassImgDTO{
+public class LessonImgDTO {
 
-    private int id;
+    private int lino;
 
     private String imgName;     //이미지 파일명
 
@@ -36,8 +36,8 @@ public class AtelierClassImgDTO{
 
 
 
-    public static AtelierClassImgDTO of(AtelierClassImg atelierClassImg){
+    public static LessonImgDTO of(LessonImg lessonImg){
 
-        return modelMapper.map(atelierClassImg, AtelierClassImgDTO.class);
+        return modelMapper.map(lessonImg, LessonImgDTO.class);
     }
 }

@@ -34,21 +34,6 @@ public class SecurityConfig {
                                 .requestMatchers("/css/**", "/js/**", "/img/**", "/**").permitAll()
                 )
 
-//                .authorizeRequests()
-//                .antMatchers("/customer/login").permitAll()
-//                .antMatchers("/atelier/login").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/customer/login")  // 첫 번째 로그인 경로
-//                .loginProcessingUrl("/customer/login")  // 첫 번째 로그인 처리 URL
-//                .permitAll()
-//                .and()
-//                .formLogin()
-//                .loginPage("/atelier/login")  // 두 번째 로그인 경로
-//                .loginProcessingUrl("/atelier/login")  // 두 번째 로그인 처리 URL
-//                .permitAll();
-
                 .csrf((csrf) -> csrf
 
                         .disable()

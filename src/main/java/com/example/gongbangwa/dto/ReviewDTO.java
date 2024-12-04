@@ -1,9 +1,5 @@
 package com.example.gongbangwa.dto;
 
-import com.example.gongbangwa.entity.Atelier;
-import com.example.gongbangwa.entity.AtelierClass;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -24,7 +20,7 @@ public class ReviewDTO {
 
     private int ano;
 
-    private int acno;
+    private int lno;
 
     private LocalDateTime regTime;
     private LocalDateTime updateTime;
