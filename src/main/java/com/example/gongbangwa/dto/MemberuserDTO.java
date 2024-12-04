@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerDTO{
+public class MemberuserDTO {
 
     private int cno;            //회원번호
 
@@ -32,8 +32,6 @@ public class CustomerDTO{
 
     @NotBlank(message = "별명은 필수 입력 값입니다.")
     private String nickname;    //별명
-
-    private LocalDate birth;    //생년월일
 
     private Role role;          //권한
 

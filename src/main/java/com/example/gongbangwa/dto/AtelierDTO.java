@@ -1,11 +1,14 @@
 package com.example.gongbangwa.dto;
 
 import com.example.gongbangwa.constant.Role;
+import com.example.gongbangwa.entity.Atelier;
+import com.example.gongbangwa.entity.AtelierImg;
 import com.querydsl.core.annotations.QueryProjection;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,20 +39,12 @@ public class AtelierDTO{
     @NotBlank(message = "사업지는 필수 입력 값입니다.")
     private String atelierAdd;  //공방 주소
 
-
     @NotBlank(message = "오픈시간은 필수 입력 값입니다.")
     private String opening;  //공방오픈시간
     @NotBlank(message = "마감시간은 필수 입력 값입니다.")
     private String closing;  //공방마감시간
 
-
     private int atelierView;  //공방 조회수
-
-    @NotBlank(message = "이메일은 필수 입력 값입니다.")
-    private String email;       //이메일
-
-    @NotBlank(message = "비밀번호는 필수 입력 값입니다.")
-    private String password;//비밀번호
 
     @NotBlank(message = "사업주명은 필수 입력 값입니다.")
     private String name;       //이름
@@ -58,7 +53,6 @@ public class AtelierDTO{
     private String phone;       //전화번호
 
     private Role role;          //권한
-
 
     private LocalDateTime regTime;
     private LocalDateTime updateTime;
@@ -89,6 +83,12 @@ public class AtelierDTO{
         this.atelierAdd = atelierAdd;
         this.imgUrl = imgUrl;
         this.imgName = imgName;
+    }
+
+    // 메소드  EntityToDto // DtoToEntity
+    private static ModelMapper modelMapper = new ModelMapper();
+    public static AtelierDTO of(Atelier atelier){
+        return modelMapper.map(atelier, AtelierDTO.class);
     }
 
 

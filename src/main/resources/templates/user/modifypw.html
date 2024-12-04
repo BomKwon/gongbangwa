@@ -34,7 +34,7 @@
 <body>
 <div layout:fragment="content">
 
-    <form th:action="@{/customer/modifypw}" th:object="${passwordDTO}" method="post" style="color: white">
+    <form th:action="@{/memberuser/modifypw}" th:object="${passwordDTO}" method="post" style="color: white">
         <div class="row mt-5 mb-3">
             <div class="col col-md-4 offset-md-4">
 
@@ -44,7 +44,7 @@
                             <div class="col mb-3">
 
                                 <div style="text-align: center">
-                                    <img src="/img/user/customer.png" width="60px" style="margin-bottom: 5px">
+                                    <img src="/img/user/memberuser.png" width="60px" style="margin-bottom: 5px">
                                     <h3 style="font-family: '210snailB';">비밀번호 변경하기</h3>
                                 </div>
 
@@ -68,7 +68,7 @@
                                 </div>
                                 <br>
                                 <div style="text-align: center">
-                                    <button th:href="@{/customer/modifypw}" type="submit" class="btn btn-danger" >비밀번호 변경</button>
+                                    <button th:href="@{/memberuser/modifypw}" type="submit" class="btn btn-danger" >비밀번호 변경</button>
                                 </div>
                             </div>
                         </div>

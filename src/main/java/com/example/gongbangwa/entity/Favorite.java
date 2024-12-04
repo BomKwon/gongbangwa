@@ -24,16 +24,16 @@ public class Favorite extends Base {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cno")
-    private Customer customer; //공방이용자
+    private Memberuser memberuser; //공방이용자
 
     @OneToMany(mappedBy = "favorite" , cascade = CascadeType.ALL, orphanRemoval = true
             , fetch = FetchType.LAZY)
     private List<FavoriteAtelier> favoriteAtelierList = new ArrayList<>();
 
     //즐겨찾기 등록
-    public static Favorite createfavorit(Customer customer) {
+    public static Favorite createfavorit(Memberuser memberuser) {
         Favorite favorite = new Favorite();
-        favorite.setCustomer(customer);
+        favorite.setMemberuser(memberuser);
         return favorite;
     }
 

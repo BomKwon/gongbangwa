@@ -1,7 +1,6 @@
 package com.example.gongbangwa.controller;
 
-import com.example.gongbangwa.service.CustomerService;
-import com.example.gongbangwa.service.UserService;
+import com.example.gongbangwa.service.MemberuserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +18,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class MainController {
 
-    private final CustomerService customerService;
-    private final UserService userService;
+    private final MemberuserService memberuserService;
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
@@ -46,11 +44,8 @@ public class MainController {
             log.info(session + " get nickName 전");
             // principal.getName는   내부적으로 costom.getName() 를 사용  //auth2에 getname
 
-            session.setAttribute("nickName", userService.readC(principal.getName()).getNickname());
-            session.setAttribute("role", userService.readC(principal.getName()).getRole().name());
-
-            session.setAttribute("nickName", userService.readA(principal.getName()).getAtelierNm());
-            session.setAttribute("role", userService.readA(principal.getName()).getRole().name());
+            session.setAttribute("nickName", memberuserService.readMemberuser(principal.getName()).getNickname());
+            session.setAttribute("role", memberuserService.readMemberuser(principal.getName()).getRole().name());
 
             log.info(session + "메인컨트롤러 세션!!");
             log.info(principal.getName() + "메인컨트롤러 이름뜨나!!");

@@ -55,7 +55,7 @@
 
 <div layout:fragment="content">
 
-    <form action="/atelier/signup" class="forms" method="post" th:object="${atelierDTO}" enctype="multipart/form-data">
+    <form action="/atelier/login" class="forms" method="post" th:object="${atelierDTO}" enctype="multipart/form-data">
         <div class="row mt-3 mb-3">
             <div class="col col-md-4 offset-md-4">
                 <div class="card mb-4">
@@ -63,30 +63,15 @@
 
                         <div style="text-align: center">
                             <img src="/img/user/master.png" width="60px" style="margin-bottom: 5px">
-                            <h3 style="font-family: '210snailB';">사장 회원 가입</h3>
+                            <h3 style="font-family: '210snailB';">공방 등록</h3>
                         </div>
-
-                        <div class="userRole">
-                            <label class="form-label" for="role" >회원유형</label>
-                            <select aria-label="Default select example" class="form-select" th:field="*{role}" id="role" name="role">
-                                <option value="MASTER">사장회원</option>
-                            </select>
-                        </div>
-
-                        <label class="form-label" for="email" >이메일</label>
-                        <input type="text" class="form-control" id="email" name="email" th:field="*{email}"></input>
-                        <p th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
-
-                        <label class="form-label" for="password" >비밀번호</label>
-                        <input class="form-control" id="password" name="password" th:field="*{password}" type="text">
-                        <p th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
 
                         <label class="form-label" for="atelierNm" >상호명</label>
                         <input class="form-control" id="atelierNm" name="atelierNm" th:field="*{atelierNm}" type="text">
                         <p th:errors="*{atelierNm}" th:if="${#fields.hasErrors('atelierNm')}"></p>
 
                         <div class="atelierType">
-                            <label class="form-label" for="Role" >업종</label>
+                            <label class="form-label" for="atelierType" >업종</label>
                             <select aria-label="Default select example" class="form-select" th:field="*{atelierType}" id="atelierType" name="atelierType">
                                 <option value="candle">캔들/향수</option>
                                 <option value="wood">목공</option>
@@ -175,8 +160,6 @@
                         </select>
                         <p th:errors="*{closing}" th:if="${#fields.hasErrors('closing')}"></p>
 
-
-
                         <label class="form-label" for="phone" >전화번호</label>
                         <input class="form-control" id="phone" name="phone" th:field="*{phone}"
                                type="tel">
@@ -197,7 +180,7 @@
                         <div th:if =  "${not #lists.isEmpty(atelierDTO.atelierImgDTOList)}">
                             <div class="input-group  mb-3" th:each="atelierImgDTO, status: ${atelierDTO.atelierImgDTOList}">
 
-                                <input type="file"  class="form-control form-control-file" th:id="${status.index+1}" name="atelierImgFile" >
+                                <input type="file"  class="form-control form-control-file" th:id="${status.index+5}" name="atelierImgFile" >
 
                                 <input type="text" class="form-control"  name="atelierImgIds" th:value="${atelierImgDTO.aino}">
 
@@ -209,7 +192,7 @@
 <!--                                                         넘어오는 이미지 파일이 있다면 , 데이터값 db-->
                         <div th:if =  "${#strings.isEmpty(atelierDTO.ano)}" style="text-align: center; margin-top: 3px; margin-bottom: 5px">
 
-                            <button th:formaction="@{/atelier/signup}" type="submit" class="btn btn-danger submitBtn">가입하기</button>
+                            <button th:formaction="@{/atelier/register}" type="submit" class="btn btn-danger submitBtn">가입하기</button>
 
                         </div>
 
