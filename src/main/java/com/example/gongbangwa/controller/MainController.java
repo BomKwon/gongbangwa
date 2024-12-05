@@ -217,10 +217,6 @@ public class MainController {
 //    }
 
 
-
-
-
-
     @GetMapping("/FAQs")
     public String FAQs(){
         //자주묻는질문

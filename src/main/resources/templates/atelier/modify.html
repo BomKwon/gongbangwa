@@ -48,7 +48,7 @@
 
 <div layout:fragment="content">
 
-    <form action="/atelier/modify" class="forms" method="post" th:object="${atelier}" enctype="multipart/form-data">
+    <form action="/atelier/modify" class="forms" method="post" th:object="${atelierDTO}" enctype="multipart/form-data">
         <div class="row mt-3 mb-3">
             <div class="col col-md-4 offset-md-4">
                 <div class="card mb-4">
@@ -56,28 +56,15 @@
 
                         <div style="text-align: center">
                             <img src="/img/user/master.png" width="60px" style="margin-bottom: 5px">
-                            <h3 style="font-family: '210snailB';">사장 회원 가입</h3>
+                            <h3 style="font-family: '210snailB';">공방 등록</h3>
                         </div>
-
-                        <div class="userRole">
-                            <label class="form-label" for="role" >회원유형</label>
-                            <select aria-label="Default select example" class="form-select" th:field="*{role}" id="role" name="role">
-                                <option value="MASTER">사장회원</option>
-                            </select>
-                        </div>
-
-                        <label class="form-label" for="email" >이메일</label>
-                        <input type="text" class="form-control" id="email" name="email" th:field="*{email}" readonly></input>
-                        <p th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
-
-                        <input class="form-control" id="password" name="password" th:field="*{password}" type="hidden">
 
                         <label class="form-label" for="atelierNm" >상호명</label>
                         <input class="form-control" id="atelierNm" name="atelierNm" th:field="*{atelierNm}" type="text">
                         <p th:errors="*{atelierNm}" th:if="${#fields.hasErrors('atelierNm')}"></p>
 
                         <div class="atelierType">
-                            <label class="form-label" for="Role" >업종</label>
+                            <label class="form-label" for="atelierType" >업종</label>
                             <select aria-label="Default select example" class="form-select" th:field="*{atelierType}" id="atelierType" name="atelierType">
                                 <option value="candle">캔들/향수</option>
                                 <option value="wood">목공</option>
@@ -87,6 +74,7 @@
                                 <option value="bake">베이킹</option>
                                 <option value="pottery">도예</option>
                                 <option value="knitting">뜨개질</option>
+                                <option value="lather">가죽</option>
                             </select>
                         </div>
 
@@ -174,30 +162,36 @@
                         <input class="form-control" id="name" name="name" th:field="*{name}" type="text">
                         <p th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></p> <br>
 
-<!--                        <div th:if =  "${not #lists.isEmpty(atelierDTO.atelierImgDTOList)}">-->
-<!--                            <div class="input-group  mb-3" th:each="atelierImgDTO, status: ${atelierDTO.atelierImgDTOList}">-->
-
-<!--                                <input type="file"  class="form-control form-control-file" th:id="${status.index+1}" name="atelierImgFile" >-->
-
-<!--                                <input type="text" class="form-control"  name="atelierImgIds" th:value="${atelierImgDTO.aino}">-->
-
-
-<!--                                <label th:for="${status.index+1}" class="input-group-text form-control-label" th:text="${not #strings.isEmpty(atelierImgDTO.oriImgName)} ? ${atelierImgDTO.oriImgName} : '상품이미지'" >Upload</label>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                                                         넘어오는 이미지 파일이 있다면 , 데이터값 db-->
-<!--                        <div th:if =  "${#strings.isEmpty(atelierDTO.ano)}" style="text-align: center; margin-top: 3px; margin-bottom: 5px">-->
-
-                        <div style="text-align: center">
-                            <button th:formaction="@{/atelier/modify}" type="submit" class="btn btn-danger" >수정완료</button>
+                        <!-- if 만약에 넘어오는 이미지 파일이 없다면-->
+                        <div th:if =  "${#lists.isEmpty(atelierDTO.atelierImgDTOList)}">
+                            <label class="form-label" for="atelierAdd" >대표사진</label>
+                            <div class="input-group mb-3" >
+                                <input type="file" class="form-control cutom-file-input" name="atelierImgFile">
+                            </div>
                         </div>
 
-<!--                        </div>-->
+                        <div th:if =  "${not #lists.isEmpty(atelierDTO.atelierImgDTOList)}">
+                            <div class="input-group  mb-3" th:each="atelierImgDTO, status: ${atelierDTO.atelierImgDTOList}">
 
-<!--                        <div style="text-align: center; margin-top: 15px">-->
-<!--                            <input class="btn btn-secondary submitBtn" type="submit" value="등록">-->
-<!--                        </div>-->
+                                <input type="file"  class="form-control form-control-file" th:id="${status.index+1}" name="atelierImgFile" >
+
+                                <input type="text" class="form-control"  name="atelierImgIds" th:value="${atelierImgDTO.aino}">
+
+
+                                <label th:for="${status.index+1}" class="input-group-text form-control-label" th:text="${not #strings.isEmpty(atelierImgDTO.oriImgName)} ? ${atelierImgDTO.oriImgName} : '상품이미지'" >Upload</label>
+                            </div>
+                        </div>
+
+                        <!--                                                         넘어오는 이미지 파일이 있다면 , 데이터값 db-->
+                        <div th:if =  "${#strings.isEmpty(atelierDTO.ano)}" style="text-align: center; margin-top: 3px; margin-bottom: 5px">
+
+                            <button th:formaction="@{/atelier/master/register}" type="submit" class="btn btn-danger submitBtn">가입하기</button>
+
+                        </div>
+
+                        <!--                        <div style="text-align: center; margin-top: 15px">-->
+                        <!--                            <input class="btn btn-secondary submitBtn" type="submit" value="등록">-->
+                        <!--                        </div>-->
 
                     </div>
 

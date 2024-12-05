@@ -109,9 +109,10 @@ public class MemberuserService implements UserDetailsService {
     }
 
 
+    //세션
     public MemberuserDTO readMemberuser(String email){
         log.info( "read(String email)" + email);
-        Memberuser memberuser = memberuserRepository.findCustomerByEmail(email);
+        Memberuser memberuser = memberuserRepository.findMemberuserByEmail(email);
 
         if (memberuser == null){
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다");

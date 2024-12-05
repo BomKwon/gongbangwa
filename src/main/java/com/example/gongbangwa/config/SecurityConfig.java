@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         (authorizeHttpRequests) -> authorizeHttpRequests
                                 .requestMatchers(("/admin/**")).hasRole("ADMIN")
+                                .requestMatchers(("/atelier/master/**")).hasRole("MASTER")
                                 .requestMatchers("/favorite/**").authenticated()
                                 .requestMatchers("/reserve/**").authenticated()
                                 .requestMatchers("/css/**", "/js/**", "/img/**", "/**").permitAll()
@@ -43,9 +44,8 @@ public class SecurityConfig {
 
                 //현재 모든 경로에 대해서 csrf 미사용
 
-                /*일반회원, 관리자 전용*/
                 .formLogin(formLogin -> formLogin.loginPage("/login")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/session")
                         .usernameParameter("email")
                         .failureUrl("/login/error")
 
