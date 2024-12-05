@@ -1,8 +1,8 @@
 package com.example.gongbangwa.repository.search;
 
 import com.example.gongbangwa.dto.search.UserSearchDTO;
-import com.example.gongbangwa.entity.Customer;
-import com.example.gongbangwa.entity.QCustomer;
+import com.example.gongbangwa.entity.Memberuser;
+import com.example.gongbangwa.entity.QMemberuser;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -14,11 +14,11 @@ import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 
-public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
+public class MemberuserRepositoryCustomImpl implements MemberuserRepositoryCustom{
 
     private JPAQueryFactory jpaQueryFactory;
 
-    public CustomerRepositoryCustomImpl(EntityManager em){
+    public MemberuserRepositoryCustomImpl(EntityManager em){
 
         this.jpaQueryFactory = new JPAQueryFactory(em);
     }
@@ -28,15 +28,15 @@ public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
         // 이메일 , 별명 , 이름   랑 검색어
         if(StringUtils.equals("email",  searchBy) ){
 
-            return QCustomer.customer.email.like("%" + searchQuery + "%");
+            return QMemberuser.memberuser.email.like("%" + searchQuery + "%");
 
         }else if(StringUtils.equals("nickname",  searchBy) ){
 
-            return QCustomer.customer.nickname.like("%" + searchQuery + "%");
+            return QMemberuser.memberuser.nickname.like("%" + searchQuery + "%");
 
         }else if(StringUtils.equals("name",  searchBy) ){
 
-            return QCustomer.customer.name.like("%" + searchQuery + "%");
+            return QMemberuser.memberuser.name.like("%" + searchQuery + "%");
         }
 
         return null;
@@ -44,20 +44,19 @@ public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
     }
 
     @Override
-    public Page<Customer> getCustomerPage(UserSearchDTO userSearchDTO, Pageable pageable) {
-        QueryResults<Customer> result =  jpaQueryFactory.selectFrom(QCustomer.customer)
+    public Page<Memberuser> getMemberuserPage(UserSearchDTO userSearchDTO, Pageable pageable) {
+        QueryResults<Memberuser> result =  jpaQueryFactory.selectFrom(QMemberuser.memberuser)
                 .where( searchByLike( userSearchDTO.getSearchBy(),
-                                userSearchDTO.getSearchQuery() )
+                        userSearchDTO.getSearchQuery() )
                 )
-                .orderBy(QCustomer.customer.cno.desc() )
+                .orderBy(QMemberuser.memberuser.cno.desc() )
                 .offset(pageable.getOffset())           // 몇번부터 1번글부터 // 11번글 부터
                 .limit(pageable.getPageSize())          //size = 10 10개씩
                 .fetchResults();
 
-        List<Customer> content = result.getResults();
+        List<Memberuser> content = result.getResults();
         long total = result.getTotal();
 
         return new PageImpl<>(content, pageable, total);
     }
-
 }

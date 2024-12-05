@@ -111,7 +111,9 @@ public class AtelierRepositoryCustormImpl implements AtelierRepositoryCustorm {
                             atelier.atelierNm,
                             atelier.atelierType,
                             atelier.atelierArea,
-                            atelier.atelierAdd
+                            atelier.atelierAdd,
+                            atelierImg.imgUrl,
+                            atelierImg.imgName
                     )
                 )
                 .from(atelierImg)

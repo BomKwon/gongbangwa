@@ -24,7 +24,7 @@ public class Reserve extends Base {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cno")
-    private Customer customer;
+    private Memberuser memberuser;
 
     @OneToMany(mappedBy = "reserve" , cascade = CascadeType.ALL, orphanRemoval = true
             , fetch = FetchType.LAZY)
@@ -45,9 +45,9 @@ public class Reserve extends Base {
         reserveLesson.setReserve(this);   //주문아이템을 주문을 참조한다.
     }
 
-    public static Reserve createreserve(Customer customer, List<ReserveLesson> reserveLessonList){
+    public static Reserve createreserve(Memberuser memberuser, List<ReserveLesson> reserveLessonList){
         Reserve reserve = new Reserve();  //저장에 쓰일 주문엔티티 만드는 메소드
-        reserve.setCustomer(customer);
+        reserve.setMemberuser(memberuser);
 
         for (ReserveLesson reserveLesson : reserveLessonList){
             reserve.addReserveItem(reserveLesson);      //주문에 있는 주문아이템리스트 넣기 반복해서

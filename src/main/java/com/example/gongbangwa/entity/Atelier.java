@@ -26,12 +26,6 @@ public class Atelier extends Base {
     @Column
     private String atelierNm;    //공방명
 
-    @Column(unique = true)
-    private String email;       //이메일
-
-    @Column(nullable = false, length = 100)
-    private String password;    //비밀번호
-
     @Column
     private String atelierType;   //업종
 
@@ -45,13 +39,16 @@ public class Atelier extends Base {
     private String atelierAdd;  //공방 주소
 
     @Column
+    private String opening;  //공방오픈시간
+    @Column
+    private String closing;  //공방마감시간
+
+    @Column
     private String name;       //이름
 
     @Column
     private String phone;       //전화번호
 
-    @Enumerated(EnumType.STRING)
-    private Role role;          //권한
 
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int atelierView;  //공방 조회수
@@ -61,30 +58,32 @@ public class Atelier extends Base {
             orphanRemoval = true, fetch = FetchType.LAZY)
     private List<AtelierImg> atelierImgList = new ArrayList<>();
 
-    //수업
-    @OneToMany(mappedBy = "atelier", cascade = CascadeType.ALL,
-            orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Lesson> lessonList = new ArrayList<>();
-
-
-
-    //회원가입용
-    public static Atelier createAtelier(AtelierDTO atelierDTO,
-                                        PasswordEncoder passwordEncoder) {
+    //등록
+    public static Atelier createAtelier(AtelierDTO atelierDTO) {
         //modelmapper
         Atelier atelier = new Atelier();
-        atelier.setEmail(atelierDTO.getEmail());
-        String password =  passwordEncoder.encode(atelierDTO.getPassword());
-        atelier.setPassword(password);
         atelier.setName(atelierDTO.getName());
         atelier.setPhone(atelierDTO.getPhone());
         atelier.setAtelierNm(atelierDTO.getAtelierNm());
         atelier.setAtelierType(atelierDTO.getAtelierType());
         atelier.setAtelierDetail(atelierDTO.getAtelierDetail());
         atelier.setAtelierAdd(atelierDTO.getAtelierAdd());
-        atelier.setRole(Role.MASTER);      // 사용자가 가입했을때
+        atelier.setAtelierArea(atelierDTO.getAtelierArea());
+        atelier.setOpening(atelierDTO.getOpening());
+        atelier.setClosing(atelierDTO.getClosing());
 
         return atelier;
+    }
+
+    //수정
+    public void updateAtelier (AtelierDTO atelierDTO) {
+        this.atelierNm = atelierDTO.getAtelierNm();
+        this.atelierArea = atelierDTO.getAtelierArea();
+        this.atelierAdd = atelierDTO.getAtelierAdd();
+        this.atelierDetail = atelierDTO.getAtelierDetail();
+        this.opening = atelierDTO.getOpening();
+        this.closing = atelierDTO.getClosing();
+        this.phone = atelierDTO.getPhone();
     }
 
 

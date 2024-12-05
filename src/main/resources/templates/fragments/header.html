@@ -53,8 +53,7 @@
 
                     <button type="button" class="btn btn-outline-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true" th:text="${session.name}+ '(' + ${session.role} + ')'"></button>
                     <ul class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 40px); " data-popper-placement="bottom-start">
-                        <li><a class="dropdown-item" sec:authorize="hasAnyRole('USER')" href="/customer/myInfo">마이페이지</a></li> <!--if role이 user라면~~/ master가 아니라면~~-->
-                        <li><a class="dropdown-item" sec:authorize="hasAnyRole('MASTER')" href="/atelier/myInfo">마이페이지</a></li> <!--if role이 master라면~~~ -->
+                        <li><a class="dropdown-item" href="/user/myInfo">마이페이지</a></li>
                         <li><a class="dropdown-item" href="#">즐겨찾기</a></li>
                         <li><a class="dropdown-item" href="#">예약 내역</a></li>
                         <li><hr class="dropdown-divider"></li>

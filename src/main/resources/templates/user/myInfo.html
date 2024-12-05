@@ -1,0 +1,171 @@
+<html layout:decorate="~{layouts/layout1}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공방와 :: 마이페이지</title>
+
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+
+            $(document).ready(function (e) {
+
+                console.log("냥")
+
+                var errorMessage = [[${errorMessage}]];
+                if (errorMessage != null) {
+                    alert(errorMessage);
+                }
+
+                var result = [[${result}]];
+
+                if (result != null) {
+                    alert(result)
+                }
+            })
+
+        </script>
+    </th:block>
+
+</head>
+<body>
+
+<div layout:fragment="content" >
+
+
+    <div class="row mb-5">
+
+        <div class="col-md-5 col-lg-4 mt-5">
+            <div class="col-lg-8 card" style="text-align: center; margin: auto">
+                <!--            일반회원-->
+                <img src="/img/user/customer.png" sec:authorize="hasRole('USER')" width="130" style="margin-top: 60px; margin-left: auto; margin-right: auto">
+                <img src="/img/user/master.png" sec:authorize="hasRole('MASTER')" width="130" style="margin-top: 60px; margin-left: auto; margin-right: auto">
+                <img src="/img/user/admin.png" sec:authorize="hasRole('ADMIN')" width="130" style="margin-top: 45px; margin-left: auto; margin-right: auto">
+                <h2 class=" mt-3 mb-0" style="font-family: '210snailR';">[[${memberuser.nickname}]] 님</h2>
+                <p class="mb-4" sec:authorize="hasRole('USER')" style="font-family: '210snailL';">일반회원</p>
+                <p class="mb-4" sec:authorize="hasRole('MASTER')" style="font-family: '210snailL';">사장회원</p>
+                <p class="mb-4" sec:authorize="hasRole('ADMIN')" style="font-family: '210snailL';">관리자</p>
+<!--                <p class="mb-3">관리자⭐</p>-->
+                <!--thif로 role 유형에 따라 다른 출력-->
+                <p><a class="btn btn-secondary" href="/user/modify" style="margin-bottom: 20px; font-family: '210snailL';">내 정보 »</a></p>
+            </div>
+
+        </div>
+
+        <div sec:authorize="hasRole('USER')" class="col-md-8 col-lg-7 card mt-5" >
+            <div class="row" style="margin: auto">
+                <!--사장제외-->
+                <div class="col-lg-3" style="text-align: center">
+                    <a href="/user/modify" style="text-decoration: none; color: #787878">
+                        <svg class="bd-placeholder-img rounded-circle" width="130" height="130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 130x130" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">130x130</text></svg>
+                        <h4 class="mt-3" style="font-family: '210snailR';">내 정보</h4>
+                    </a>
+                </div>
+                <div class="col-lg-3" style="text-align: center">
+                    <a href="/memberuser/modify" style="text-decoration: none; color: #787878">
+                        <svg class="bd-placeholder-img rounded-circle" width="130" height="130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 130x130" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">130x130</text></svg>
+                        <h4 class="mt-3" style="font-family: '210snailR';">즐겨 찾기</h4>
+                    </a>
+                </div>
+                <div class="col-lg-3" style="text-align: center">
+                    <a href="/memberuser/modify" style="text-decoration: none; color: #787878">
+                        <svg class="bd-placeholder-img rounded-circle" width="130" height="130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 130x130" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">130x130</text></svg>
+                        <h4 class="mt-3" style="font-family: '210snailR';">예약 내역</h4>
+                    </a>
+                </div>
+                <!--일반회원 전용-->
+                <div class="col-lg-3" style="text-align: center">
+                    <a href="/memberuser/modify" style="text-decoration: none; color: #787878">
+                        <svg class="bd-placeholder-img rounded-circle" width="130" height="130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 130x130" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">130x130</text></svg>
+                        <h4 class="mt-3" style="font-family: '210snailR';">내가 쓴 글</h4>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div sec:authorize="hasRole('ADMIN')" class="col-md-8 col-lg-7 card mt-5" >
+            <div class="row" style="margin: auto">
+                <!--사장제외-->
+                <div class="col-lg-3" style="text-align: center">
+                    <a href="/user/modify" style="text-decoration: none; color: #787878">
+                        <svg class="bd-placeholder-img rounded-circle" width="130" height="130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 130x130" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">130x130</text></svg>
+                        <h4 class="mt-3" style="font-family: '210snailR';">내 정보</h4>
+                    </a>
+                </div>
+                <div class="col-lg-3" style="text-align: center">
+                    <a href="/admin/user/list" style="text-decoration: none; color: #787878">
+                        <svg class="bd-placeholder-img rounded-circle" width="130" height="130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 130x130" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">130x130</text></svg>
+                        <h4 class="mt-3" style="font-family: '210snailR';">회원관리</h4>
+                    </a>
+                </div>
+                <div class="col-lg-3" style="text-align: center">
+                    <a href="/user/modify" style="text-decoration: none; color: #787878">
+                        <svg class="bd-placeholder-img rounded-circle" width="130" height="130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 130x130" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">130x130</text></svg>
+                        <h4 class="mt-3" style="font-family: '210snailR';">일정관리</h4>
+                    </a>
+                </div>
+                <!--일반회원 전용-->
+                <div class="col-lg-3" style="text-align: center">
+                    <a href="/user/modify" style="text-decoration: none; color: #787878">
+                        <svg class="bd-placeholder-img rounded-circle" width="130" height="130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 130x130" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">130x130</text></svg>
+                        <h4 class="mt-3" style="font-family: '210snailR';">공지작성</h4>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div sec:authorize="hasRole('MASTER')" class="col-md-8 col-lg-7 card mt-5" >
+            <div class="row" style="margin: auto">
+                <div class="col-lg-3" style="text-align: center">
+                    <a th:onclick="|location.href='@{/atelier/read(ano=${atelier.ano})}'|" style="text-decoration: none; color: #787878">
+                        <svg class="bd-placeholder-img rounded-circle" width="130" height="130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 130x130" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">130x130</text></svg>
+                        <h4 class="mt-3" style="font-family: '210snailR';">내 공방</h4>
+                    </a>
+                </div>
+                <!--일반회원 전용-->
+                <div class="col-lg-3" style="text-align: center">
+                    <a href="/atelier/modify" style="text-decoration: none; color: #787878">
+                        <svg class="bd-placeholder-img rounded-circle" width="130" height="130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 130x130" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">130x130</text></svg>
+                        <h4 class="mt-3" style="font-family: '210snailR';">예약 일정</h4>
+                    </a>
+                </div>
+                <div class="col-lg-3" style="text-align: center">
+                    <a href="/atelier/modify" style="text-decoration: none; color: #787878">
+                        <svg class="bd-placeholder-img rounded-circle" width="130" height="130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 130x130" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">130x130</text></svg>
+                        <h4 class="mt-3" style="font-family: '210snailR';">예약 확인</h4>
+                    </a>
+                </div>
+                <!--일반회원 전용-->
+                <div class="col-lg-3" style="text-align: center">
+                    <a href="/atelier/modify" style="text-decoration: none; color: #787878">
+                        <svg class="bd-placeholder-img rounded-circle" width="130" height="130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 130x130" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">130x130</text></svg>
+                        <h4 class="mt-3" style="font-family: '210snailR';">수업 목록</h4>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <br>
+        <br>
+
+
+        <br>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+</body>
+</html>

@@ -1,7 +1,6 @@
 package com.example.gongbangwa.repository;
 
 import com.example.gongbangwa.entity.Atelier;
-import com.example.gongbangwa.entity.Customer;
 import com.example.gongbangwa.repository.search.AtelierRepositoryCustorm;
 import com.example.gongbangwa.repository.search.AtelierSearch;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,9 +11,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface AtelierRepository extends JpaRepository<Atelier, Integer>, AtelierRepositoryCustorm, AtelierSearch {
-
-    //이메일로 정보 찾기 //중복회원?? 혹은 로그인시?
-    Atelier findByEmail (String email);
 
     /*조회수 업뎃*/
     @Modifying
@@ -28,10 +24,6 @@ public interface AtelierRepository extends JpaRepository<Atelier, Integer>, Atel
 //    /*조회수 순*/
 //    List<Atelier> findByAtelierNmOrderByAtelierViewDesc (Integer atelierView); //내림차(높은)순
 
-    Atelier findByName(String name);
-    Atelier findByNameAndEmail(String name,String email);
-
-    Atelier findAtelierByEmail(String email);
 
 
 
