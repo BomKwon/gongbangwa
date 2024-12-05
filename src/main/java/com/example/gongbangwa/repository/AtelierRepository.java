@@ -22,7 +22,7 @@ public interface AtelierRepository extends JpaRepository<Atelier, Integer>, Atel
     List<Atelier> findByAtelierNmOrAtelierDetail (@Param("atelierNm") String atelierNm,@Param("atelierDetail") String atelierDetail);
 
 //    /*조회수 순*/
-//    List<Atelier> findByAtelierNmOrderByAtelierViewDesc (Integer atelierView); //내림차(높은)순
+    List<Atelier> findByAtelierNmOrderByAtelierViewDesc (Integer atelierView); //내림차(높은)순
 
 
 

@@ -46,7 +46,9 @@
                 <div class="card-body">
 
                     <div style="text-align: center">
-                        <img src="/img/user/memberuser.png" width="60px" style="margin-bottom: 5px">
+                        <img src="/img/user/customer.png" sec:authorize="hasRole('USER')" width="60px" style="margin-bottom: 5px">
+                        <img src="/img/user/admin.png" sec:authorize="hasRole('ADMIN')" width="60px" style="margin-bottom: 5px">
+                        <img src="/img/user/master.png" sec:authorize="hasRole('MASTER')" width="60px" style="margin-bottom: 5px">
                         <h3 style="font-family: '210snailB';">내 정보 수정하기</h3>
                     </div>
 

@@ -40,9 +40,9 @@
                 var open = $(".open")
                 var close = $(".close")
 
-                if (open.val >= close.val) {
-                    alert("오픈시간과 마감시간은 같거나 마감시간이 이를 수 없습니다.")
-                }
+                // if (open.val >= close.val) {
+                //     alert("오픈시간과 마감시간은 같거나 마감시간이 이를 수 없습니다.")
+                // }
 
             })
 
@@ -55,7 +55,7 @@
 
 <div layout:fragment="content">
 
-    <form action="/atelier/login" class="forms" method="post" th:object="${atelierDTO}" enctype="multipart/form-data">
+    <form action="/atelier/master/register" class="forms" method="post" th:object="${atelierDTO}" enctype="multipart/form-data">
         <div class="row mt-3 mb-3">
             <div class="col col-md-4 offset-md-4">
                 <div class="card mb-4">
@@ -180,7 +180,7 @@
                         <div th:if =  "${not #lists.isEmpty(atelierDTO.atelierImgDTOList)}">
                             <div class="input-group  mb-3" th:each="atelierImgDTO, status: ${atelierDTO.atelierImgDTOList}">
 
-                                <input type="file"  class="form-control form-control-file" th:id="${status.index+5}" name="atelierImgFile" >
+                                <input type="file"  class="form-control form-control-file" th:id="${status.index+1}" name="atelierImgFile" >
 
                                 <input type="text" class="form-control"  name="atelierImgIds" th:value="${atelierImgDTO.aino}">
 
@@ -192,7 +192,7 @@
 <!--                                                         넘어오는 이미지 파일이 있다면 , 데이터값 db-->
                         <div th:if =  "${#strings.isEmpty(atelierDTO.ano)}" style="text-align: center; margin-top: 3px; margin-bottom: 5px">
 
-                            <button th:formaction="@{/atelier/register}" type="submit" class="btn btn-danger submitBtn">가입하기</button>
+                            <button th:formaction="@{/atelier/master/register}" type="submit" class="btn btn-danger submitBtn">가입하기</button>
 
                         </div>
 

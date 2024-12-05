@@ -5,6 +5,7 @@ import com.example.gongbangwa.dto.PageRequestDTO;
 import com.example.gongbangwa.dto.search.AtelierSearchDTO;
 import com.example.gongbangwa.entity.Atelier;
 import com.example.gongbangwa.service.AtelierService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -33,7 +34,7 @@ public class AtelierController {
     private final PasswordEncoder passwordEncoder;
 
     //공방 회원 가입
-    @GetMapping("/register")
+    @GetMapping("/master/register")
     public String register(Model model) {
 
         model.addAttribute("atelierDTO",new AtelierDTO());
@@ -47,7 +48,7 @@ public class AtelierController {
     }
 
     /*html파일에서 post로 보내준 값 받음*/
-    @PostMapping("/register")
+    @PostMapping("/master/register")
     public String atelierSignUpP(@Valid AtelierDTO atelierDTO,
                                   BindingResult bindingResult, Model model
             , @RequestParam("atelierImgFile") List<MultipartFile> atelierImgFileList) throws IOException {
@@ -77,7 +78,7 @@ public class AtelierController {
 
         model.addAttribute("result", "회원가입을 축하드립니다!");
 
-        return "redirect:/login";/*로그인창으로 갑시다~*/
+        return "redirect:/atelier/list";/*로그인창으로 갑시다~*/
     }
 
     //남들도 보는 페이지
@@ -89,31 +90,80 @@ public class AtelierController {
         return "/atelier/read";
     }
 
-    //  내 정보 수정
-    @GetMapping("/modify")/*수정 창 진입*/
-    public String getModify(AtelierDTO atelierDTO, Model model) {
-        model.addAttribute("atelierDTO", atelierDTO);/*user라는 이름으로 user값 전송*/
-        return "/atelier/modify";/*수정창으로 이동*/
-    }
+//    //  내 정보 수정
+//    @GetMapping("/master/modify")/*수정 창 진입*/
+//    public String getModify(AtelierDTO atelierDTO, Model model) {
+//        model.addAttribute("atelierDTO", atelierDTO);/*user라는 이름으로 user값 전송*/
+//        return "/atelier/modify";/*수정창으로 이동*/
+//    }
+//
+//    //  수정된 값 받아오는곳
+//    @PostMapping("/master/modify")
+//    public String modify(@Valid AtelierDTO atelierDTO, BindingResult bindingResult,
+//                         @RequestParam("questImgFile") List<MultipartFile> multipartFiles,
+//                         Model model) throws Exception {
+//
+//        log.warn(atelierDTO);
+//
+//        try {
+//            atelierService.updateAtelier(atelierDTO, multipartFiles);
+//        }catch (Exception e) {
+//            model.addAttribute("atelierDTO", atelierService.atelierRead(atelierDTO));
+//            log.warn(bindingResult.getFieldError());
+//            return "/atelier/modify";
+//        }
+//
+//        return "redirect:/atelier/read"; //수정된값을 가지고 바로 read로 돌아감
+//    }
 
-    //  수정된 값 받아오는곳
-    @PostMapping("/modify")
-    public String modify(@Valid AtelierDTO atelierDTO, BindingResult bindingResult,
-                         @RequestParam("questImgFile") List<MultipartFile> multipartFiles,
-                         Model model) throws Exception {
-
-        log.warn(atelierDTO);
+    @GetMapping("/modify/{ano}")        //   /quest/3  3번이미지 보여줘
+    public String questModifyGet(@PathVariable("ano") int ano
+            , Model model, Principal principal) {
 
         try {
-            atelierService.updateAtelier(atelierDTO, multipartFiles);
-        }catch (Exception e) {
-            model.addAttribute("atelierDTO", atelierService.atelierRead(atelierDTO));
-            log.warn(bindingResult.getFieldError());
+
+            AtelierDTO atelierDTO = atelierService.getQuestDetail(ano);
+            model.addAttribute("atelierDTO" , atelierDTO);
+            // html에서 thyleaf  th:object="${questFormDto}"
+
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("errorMessage",
+                    "존재하지 않는 공방입니다요");
+
+            return "/atelier/list";
+
+        }
+
+        return "/atelier/modify";
+
+    }
+
+    // TODO: 2024-07-09 수정필요함 사진인식안됨
+    @PostMapping("/modify{ano}")
+    public String questUpdate(@Valid AtelierDTO atelierDTO,
+                              BindingResult bindingResult, Principal principal,
+                              @RequestParam("atelierImgFile") List<MultipartFile> multipartFiles,
+                              Model model) {
+
+        if (bindingResult.hasErrors()) {
             return "/atelier/modify";
         }
 
-        return "redirect:/atelier/read"; //수정된값을 가지고 바로 read로 돌아감
+        if(multipartFiles.get(0).isEmpty() && atelierDTO.getAno() == null){
+            model.addAttribute("errorMessage", "대표 이미지는 필수 입력값입니다.");
+            return "/atelier/modify";
+        }
+
+        try {
+            atelierService.updateAtelier(atelierDTO, multipartFiles);
+        }catch (Exception e){
+            model.addAttribute("errorMessage", "수정 중에 문제가 발생했습니다.");
+            return "/quest/questForm";
+        }
+        return "redirect:/";
+
     }
+
 
 
     //목록

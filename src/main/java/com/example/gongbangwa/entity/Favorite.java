@@ -24,7 +24,7 @@ public class Favorite extends Base {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cno")
-    private Memberuser memberuser; //공방이용자
+    private Memberuser memberuser;
 
     @OneToMany(mappedBy = "favorite" , cascade = CascadeType.ALL, orphanRemoval = true
             , fetch = FetchType.LAZY)

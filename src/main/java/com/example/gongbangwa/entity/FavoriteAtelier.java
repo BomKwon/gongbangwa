@@ -28,7 +28,7 @@ public class FavoriteAtelier extends Base {
     private Favorite favorite;              // 즐겨찾기
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "quest_id")
+    @JoinColumn(name = "ano")
     private Atelier atelier;              //아이템
 
 

@@ -47,6 +47,21 @@
                 if (result != null) {
                     alert(result)
                 }
+
+                /*로그인 안했을시 알림창 띄운 후 로그인창으로 이동*/
+                var likeBtnN = $(".likeBtnN")
+                var okBtnN = $(".okBtnN")
+
+                likeBtnN.on("click", function () {
+                    alert("로그인 후 이용해주세요.")
+                    location.href = '/login';
+                })
+
+                okBtnN.on("click", function () {
+                    alert("로그인 후 이용해주세요.")
+                    location.href = '/login';
+                })
+
             })
 
         </script>
@@ -139,9 +154,18 @@
 
                                 <div class="text-end mt-3 mb-3 me-3" >
 
-                                    <div th:unless="${atelierDTO.email} == ${#authentication.principal.username}">
+                                    <div sec:authorize="hasRole('USER')" th:unless="${atelierDTO.createBy} == ${#authentication.principal.username}">
                                         <button type="button" class="btn btn-outline-danger btn-lg likeBtn" onclick="addLike()" style="font-family: '210snailR'; ">❤ 즐겨찾기</button>
                                         <button type="button" class="btn btn-danger btn-lg okBtn" onclick="order()" style="font-family: '210snailR';">✔ 예약하기</button>
+                                    </div>
+
+                                    <div sec:authorize="isAnonymous()">
+                                        <button type="button" class="btn btn-outline-danger btn-lg likeBtnN" onclick="addLike()" style="font-family: '210snailR'; ">❤ 즐겨찾기</button>
+                                        <button type="button" class="btn btn-danger btn-lg okBtnN" onclick="order()" style="font-family: '210snailR';">✔ 예약하기</button>
+                                    </div>
+
+                                    <div sec:authorize="hasRole('MASTER')" th:unless="${atelierDTO.createBy} != ${#authentication.principal.username}">
+                                        <a th:href="@{'/atelier/modify/' + ${atelierDTO.ano} }" type="button" class="btn btn-danger btn-lg okBtn" style="font-family: '210snailR';">수정하기</a>
                                     </div>
 
                                     <br>
@@ -167,15 +191,17 @@
                     &nbsp;<span style="font-family: '210snailL'; font-size: x-large"> 💌 상세 정보</span>
                     &nbsp;&nbsp;
                     <!--자신의 공방페이지에서만 보임-->
-                    <a th:seamless="${atelierDTO.email} == ${#authentication.principal.username}"
-                            href="/lesson/register" class="btn btn-secondary lessonRegiBtn" style="font-family: '210snailR'; ">
-                        수업 등록!</a>
+<!--                    <a th:seamless="${atelierDTO.createBy} == ${#authentication.principal.username}"-->
+<!--                            href="/lesson/register" class="btn btn-secondary lessonRegiBtn" style="font-family: '210snailR'; ">-->
+<!--                        수업 등록!</a>-->
                     &nbsp; <hr> &nbsp;
                 </div>
 
                 <div class="mb-3 mt-2">
                     &nbsp;&nbsp;<span style="font-family: '210snailL';" th:text="${atelierDTO.atelierDetail}"></span>
                     <!-- 이 곳에 공방수업 목록 작성 예정 -->
+                    <br>
+                    <br>
                 </div>
 
             </div>

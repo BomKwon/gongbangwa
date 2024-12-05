@@ -58,6 +58,10 @@ public class Atelier extends Base {
             orphanRemoval = true, fetch = FetchType.LAZY)
     private List<AtelierImg> atelierImgList = new ArrayList<>();
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cno")
+    private Memberuser memberuser;  //회원당 공방은 하나
+
     //등록
     public static Atelier createAtelier(AtelierDTO atelierDTO) {
         //modelmapper
