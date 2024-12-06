@@ -159,8 +159,8 @@
                         <p th:errors="*{phone}" th:if="${#fields.hasErrors('phone')}"></p>
 
                         <label class="form-label" for="name" >대표자명</label>
-                        <input class="form-control" id="name" name="name" th:field="*{name}" type="text">
-                        <p th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></p> <br>
+                        <input class="form-control" id="name" name="name" th:field="*{owner}" type="text">
+                        <p th:errors="*{owner}" th:if="${#fields.hasErrors('name')}"></p> <br>
 
                         <!-- if 만약에 넘어오는 이미지 파일이 없다면-->
                         <div th:if =  "${#lists.isEmpty(atelierDTO.atelierImgDTOList)}">
@@ -183,9 +183,9 @@
                         </div>
 
                         <!--                                                         넘어오는 이미지 파일이 있다면 , 데이터값 db-->
-                        <div th:if =  "${#strings.isEmpty(atelierDTO.ano)}" style="text-align: center; margin-top: 3px; margin-bottom: 5px">
+                        <div  style="text-align: center; margin-top: 3px; margin-bottom: 5px">
 
-                            <button th:formaction="@{/atelier/master/register}" type="submit" class="btn btn-danger submitBtn">가입하기</button>
+                            <button th:formaction="@{/atelier/master/modify}" type="submit" class="btn btn-danger submitBtn">수정하기</button>
 
                         </div>
 

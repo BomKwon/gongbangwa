@@ -115,6 +115,7 @@ public class AtelierRepositoryCustormImpl implements AtelierRepositoryCustorm {
                             atelier.atelierAdd,
                             atelier.opening,
                             atelier.closing,
+                            atelier.owner,
                             atelier.phone,
                             atelierImg.imgUrl,
                             atelierImg.imgName

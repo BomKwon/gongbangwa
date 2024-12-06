@@ -33,7 +33,7 @@
     <th:block layout:fragment="script">
         <script th:inline="javascript">
 
-            $(document).ready(function (e) {
+            $(document).ready(function errMsg() {
 
                 console.log("냥")
 
@@ -49,6 +49,7 @@
                 }
 
                 /*로그인 안했을시 알림창 띄운 후 로그인창으로 이동*/
+                /*이건 rest로 예약과 즐겨찾기 버튼 연결한 후엔 필요없을듯 */
                 var likeBtnN = $(".likeBtnN")
                 var okBtnN = $(".okBtnN")
 
@@ -62,7 +63,72 @@
                     location.href = '/login';
                 })
 
+
+                $(".delBtn").on("click" , function (e) {
+                    e.preventDefault()
+
+                    if (confirm("정말 삭제하시겠습니까??") == true) {    //확인
+
+                        let a = $(this).find('span:eq(0)')  //jquery
+
+                        console.log(a)
+
+                        deleteAtelier(a)
+
+                    } else {
+
+                    }
+                })
+
+
             })
+
+
+            // 삭제버튼을 눌렀을때 진행하는
+            function deleteAtelier(obj){
+
+
+
+                var ano = [[${atelierDTO.ano}]];    //아이템의 아이디를 가져온다.
+                let url = "/atelier/master/remove/" + ano;
+                let url1 = "/atelier/read?ano=" + ano;
+
+                console.log(ano)
+
+                // alert(url);
+
+                $.ajax({
+                    url :url,
+                    type : "get" ,
+                    dataType : "json",
+                    success : function (result) {
+
+                        location.href='/atelier/list';
+                    },
+                    error : function (result, status, error) {
+
+                        if(result.status == '401'){
+                            // alert(result.responseText+'로그인 후 이용해주세요');
+                            alert('로그인 후 이용해주세요');
+                            location.href = '/login';
+                        }else if(result.status == '200') {
+                            alert(result.responseText + " 글을 삭제 완료 했습니다😥")
+                            location.href='/atelier/list';
+                        }else {
+                            /*여긴 또 잘 지워짐 ㅇㅅㅇ*/
+                            // alert("글을 삭제 완료 했다개😥")
+                            // alert("완료된 의뢰는 삭제할 수 없다개😥")
+                            alert("확인요망 : " + result.responseText )
+                            alert("확인요망 : " + result.status )
+                            location.href=url1;
+                        }
+                    }
+                });
+                //삭제버튼은 버튼자체의 태그를 갖는다.
+
+            }
+
+
 
         </script>
     </th:block>
@@ -165,7 +231,8 @@
                                     </div>
 
                                     <div sec:authorize="hasRole('MASTER')" th:unless="${atelierDTO.createBy} != ${#authentication.principal.username}">
-                                        <a th:href="@{'/atelier/modify/' + ${atelierDTO.ano} }" type="button" class="btn btn-danger btn-lg okBtn" style="font-family: '210snailR';">수정하기</a>
+                                        <a th:href="@{'/atelier/master/modify/' + ${atelierDTO.ano} }" type="button" class="btn btn-danger btn-sm modBtn" style="font-family: '210snailR';">수정하기</a>
+                                        <a th:href="@{'/atelier/master/remove/' + ${atelierDTO.ano} }" class="btn btn-light btn-sm delBtn" style="font-family: '210snailR';">삭제하기</a>
                                     </div>
 
                                     <br>

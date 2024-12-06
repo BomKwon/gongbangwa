@@ -131,7 +131,7 @@ public class AtelierSearchImpl extends QuerydslRepositorySupport implements Atel
             atelier.atelierAdd,
             atelier.phone,
             atelier.atelierImgList,
-            atelier.name
+            atelier.owner
     ));
 
 
