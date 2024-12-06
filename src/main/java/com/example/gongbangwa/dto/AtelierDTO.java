@@ -47,7 +47,7 @@ public class AtelierDTO{
     private int atelierView;  //공방 조회수
 
     @NotBlank(message = "사업주명은 필수 입력 값입니다.")
-    private String name;       //이름 - 나중에 회원에서 자동으로 끌고오고 fk
+    private String owner;       //이름 - 나중에 회원에서 자동으로 끌고오고 fk
 
     @NotNull(message = "전화번호는 필수 입력 값입니다.")
     private String phone;       //전화번호
@@ -71,10 +71,9 @@ public class AtelierDTO{
     //이미 저장되어서 수정할때 불러온 수업의 아이디 삭제할 수업
     private List<Integer> lessons = new ArrayList<>();
 
-    private int cno;
 
     @QueryProjection
-    public AtelierDTO(Integer ano, String atelierNm, String atelierType, String atelierDetail, String atelierArea, String atelierAdd, String opening, String closing, String phone, String imgUrl, String imgName) {
+    public AtelierDTO(Integer ano, String atelierNm, String atelierType, String atelierDetail, String atelierArea, String atelierAdd, String opening, String closing, String owner, String phone, String imgUrl, String imgName) {
         this.ano = ano;
         this.atelierNm = atelierNm;
         this.atelierType = atelierType;
@@ -83,6 +82,7 @@ public class AtelierDTO{
         this.atelierAdd = atelierAdd;
         this.opening = opening;
         this.closing = closing;
+        this.owner = owner;
         this.phone = phone;
         this.imgUrl = imgUrl;
         this.imgName = imgName;

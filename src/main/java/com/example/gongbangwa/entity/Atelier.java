@@ -44,7 +44,7 @@ public class Atelier extends Base {
     private String closing;  //공방마감시간
 
     @Column
-    private String name;       //이름
+    private String owner;       //이름
 
     @Column
     private String phone;       //전화번호
@@ -58,15 +58,11 @@ public class Atelier extends Base {
             orphanRemoval = true, fetch = FetchType.LAZY)
     private List<AtelierImg> atelierImgList = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cno")
-    private Memberuser memberuser;  //회원당 공방은 하나
-
     //등록
     public static Atelier createAtelier(AtelierDTO atelierDTO) {
         //modelmapper
         Atelier atelier = new Atelier();
-        atelier.setName(atelierDTO.getName());
+        atelier.setOwner(atelierDTO.getOwner());
         atelier.setPhone(atelierDTO.getPhone());
         atelier.setAtelierNm(atelierDTO.getAtelierNm());
         atelier.setAtelierType(atelierDTO.getAtelierType());

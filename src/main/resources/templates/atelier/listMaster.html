@@ -1,0 +1,133 @@
+<html layout:decorate="~{layouts/layout1}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공방와 :: 내 공방 목록</title>
+
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+
+            $(document).ready(function (e) {
+
+                console.log("냥")
+
+                var errorMessage = [[${errorMessage}]];
+                if (errorMessage != null) {
+                    alert(errorMessage);
+                }
+
+                var result = [[${result}]];
+
+                if (result != null) {
+                    alert(result)
+                }
+            })
+
+        </script>
+    </th:block>
+
+</head>
+<body>
+
+<div layout:fragment="content" >
+
+    <main>
+
+
+        <!--대문-->
+        <section class="py-5 text-center container" style="margin-bottom: -30px">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light" style="font-family: '210snailR'">내 공방 모아보기</h1>
+                    <p class="lead text-body-secondary " style="font-family: '210snailL'">내 공방들을 편하게 모아보자!</p>
+                    <a href="/atelier/master/register" class="btn btn-danger" style="font-family: '210snailL'">등록하기</a>
+
+                </div>
+            </div>
+        </section>
+
+
+        <hr>
+
+        <!--공방 리스트-->
+        <div style="margin-left: 10px; margin-bottom: 15px; margin-right: 10px; margin-top: 15px">
+            <table class="table" style="width:100%;  text-align: center; font-family: '210snailL'; font-size: x-large;">
+
+
+                <thead>
+                <tr class="table-danger">
+                    <th scope="col" style="width:5%">번호</th>
+                    <th scope="col" style="width:15%">유형</th>
+                    <th scope="col" style="width:45%">공방명</th>
+                    <th scope="col" style="width:25%">지역</th>
+                    <th scope="col" style="width:10%">조회수</th>
+                </tr>
+                </thead>
+
+
+
+                <tbody>
+
+
+                <th:block th:each="atelier, status: ${ateliers.getContent()}">
+
+                    <tr role="row">
+                        <td style="color: #5a5a5a">[[${atelier.ano}]]</td>
+                        <td style="color: #5a5a5a">
+                            <span th:if="${atelier.getAtelierType()} == 'candle'">캔들/향수</span>
+                            <span th:if="${atelier.getAtelierType()} == 'wood'">나무</span>
+                            <span th:if="${atelier.getAtelierType()} == 'silver'">금속</span>
+                            <span th:if="${atelier.getAtelierType()} == 'drink'">조주</span>
+                            <span th:if="${atelier.getAtelierType()} == 'art'">미술</span>
+                            <span th:if="${atelier.getAtelierType()} == 'bake'">베이킹</span>
+                            <span th:if="${atelier.getAtelierType()} == 'pottery'">도예</span>
+                            <span th:if="${atelier.getAtelierType()} == 'knitting'">뜨개</span>
+                            <span th:if="${atelier.getAtelierType()} == 'leather'">가죽</span>
+
+                        </td>
+                        <td style="text-align: left; color: #5a5a5a">
+
+                            <a style="text-decoration: none; color: #5a5a5a" th:href="'/atelier/read?ano='+ ${atelier.ano}">
+                                &nbsp;&nbsp;
+                                [[${atelier.atelierNm}]]  (<!--여긴 나중에 후기 수-->)
+
+                            </a>
+                        </td>
+                        <td style="color: #5a5a5a">[[${atelier.atelierArea}]]</td>
+                        <td style="color: #5a5a5a">[[${atelier.atelierView}]]</td>
+                    </tr>
+                </th:block>
+
+
+
+                </tbody>
+
+
+            </table>
+
+
+<!--            <div>-->
+
+<!--                <br>-->
+<!--                <br>-->
+<!--                <br>-->
+
+<!--                <h3 style="text-align: center"> 아직 등록 된 공방이 없습니다 👻 </h3>-->
+
+<!--            </div>-->
+
+
+        </div>
+
+        <!--페이징 처리 둘 곳임-->
+
+    </main>
+
+
+
+</div>
+
+</body>
+</html>

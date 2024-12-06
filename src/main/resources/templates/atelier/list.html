@@ -70,18 +70,36 @@
                     <button class="btn btn-outline-secondary mt-1" style="font-family: '210snailL'">뜨개</button>
                     <button class="btn btn-outline-secondary mt-1" style="font-family: '210snailL'">가죽</button>
 
+                    <!--검색창 달것임~! 셀렉트랑 인풋 붙어있는거 가져올거임 은 필요없을듯 타입별은 이미 있는데?-->
+                    <div style="width: 250px; margin: auto">
+                        <select class="form-select pt-1 mt-4" style="margin-top: 10px; margin-left: 13px; margin-bottom: -10px">
+                            <option>--옵션을 선택하세요--</option>
+                        </select>
+                    </div>
 
                 </div>
             </div>
         </section>
 
 
+        <hr>
+
+
+        <!--검색 조건 (날짜순 조회수순 등등)-->
+        <div style="width: 200px">
+            <select class="form-select pt-1 mt-4" style="margin-top: 10px; margin-left: 13px; margin-bottom: -10px">
+                <option>등록일자순</option>
+                <option>인기순</option>
+            </select>
+        </div>
+
+
         <!--상품-->
-        <div class="album py-5 mt-0">
+        <div class="album py-5">
+
             <div class="container">
 
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
 
                     <th:block th:each="atelier, status: ${ateliers.getContent()}">
 
@@ -111,7 +129,7 @@
                                                 <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                                                 <button type="button" class="btn btn-sm btn-outline-secondary">❤</button>
                                             </div>
-                                            <small class="text-body-secondary mb-0">
+                                            <small class="text-body-secondary mb-0" style="font-family: '210snailL'">
                                                 <p th:if="${atelier.getAtelierType()} == 'candle'">캔들/향수공방🪔</p>
                                                 <p th:if="${atelier.getAtelierType()} == 'wood'">목공방🪓</p>
                                                 <p th:if="${atelier.getAtelierType()} == 'silver'">금속공방💍</p>
